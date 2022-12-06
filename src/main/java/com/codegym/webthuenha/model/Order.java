@@ -37,5 +37,7 @@ public class Order {
     private Date starTime;
     @NotNull
     private Date endTime;
+    @NotNull
+    private Date createTime;
 
 }
