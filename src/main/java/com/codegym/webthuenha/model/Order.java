@@ -30,8 +30,8 @@ public class Order {
     private House house;
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
-    private HouseStatus status;
+    @JoinColumn(name = "order_status_id")
+    private OrderStatus status;
     @NotNull
     private Date starTime;
     @NotNull

@@ -35,7 +35,7 @@ public class House {
     private List<Image> image;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "house_status_id")
     private HouseStatus status;
 
     @OneToOne
