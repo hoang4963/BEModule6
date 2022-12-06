@@ -17,6 +17,6 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(columnDefinition = "nvarchar(200)")
     private String roleName;
 }

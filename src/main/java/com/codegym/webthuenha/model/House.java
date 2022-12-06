@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -18,10 +19,14 @@ public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @Column(columnDefinition = "nvarchar(200)")
     private String houseName;
+    @Column(columnDefinition = "nvarchar(800)")
     private String houseAddress;
-    private String bedrooms;
-    private String bathrooms;
+    private int bedrooms;
+    private int bathrooms;
+    @Column(columnDefinition = "nvarchar(1000)")
     private String description;
     private long rent;
     @OneToMany
@@ -37,6 +42,4 @@ public class House {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-
 }

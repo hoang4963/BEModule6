@@ -22,8 +22,11 @@ public class User {
     private String username;
     @NotNull
     private String password;
+    @Column(columnDefinition = "nvarchar(800)")
     private String fullName;
+    @Column(columnDefinition = "nvarchar(800)")
     private String avatar;
+    @Column(columnDefinition = "nvarchar(800)")
     private String userAddress;
     private String email;
     private String phoneNumber;
