@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -32,7 +31,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "status_id")
-    private Status status;
+    private HouseStatus status;
     @NotNull
     private Date starTime;
     @NotNull

@@ -36,7 +36,7 @@ public class House {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
-    private Status status;
+    private HouseStatus status;
 
     @OneToOne
     @JoinColumn(name = "user_id")
