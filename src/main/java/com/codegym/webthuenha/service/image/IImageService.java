@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface IImageService extends IGeneralService<Image> {
     Optional<Image> findByName(String name);
+
+    Iterable<Image> findByHouseId(Long id);
 }
