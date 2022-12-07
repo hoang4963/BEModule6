@@ -11,10 +11,12 @@ import com.codegym.webthuenha.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -77,5 +79,13 @@ public class HouseController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<House> deleteHouse() {
         return null;
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<House> getOneHouse(@PathVariable Long id){
+        Optional<House> optionalHouse = houseService.findById(id);
+        if (!optionalHouse.isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(optionalHouse.get(), HttpStatus.OK);
     }
 }
