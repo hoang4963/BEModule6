@@ -1,7 +1,7 @@
 package com.codegym.webthuenha.controller.house;
 
 
-import com.codegym.webthuenha.model.HouseDTO;
+import com.codegym.webthuenha.model.DTO.HouseDTO;
 import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.Image;
 import com.codegym.webthuenha.service.house.IHouseService;

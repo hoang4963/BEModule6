@@ -1,4 +1,4 @@
-package com.codegym.webthuenha.model;
+package com.codegym.webthuenha.model.DTO;
 
 
 import lombok.AllArgsConstructor;
