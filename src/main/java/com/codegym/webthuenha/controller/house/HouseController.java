@@ -47,6 +47,7 @@ public class HouseController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         House house = new House();
+        house.setId(houseDTO.getId());
         house.setHouseName(houseDTO.getHouseName());
         house.setHouseAddress(houseDTO.getHouseAddress());
         house.setBathrooms(houseDTO.getBathrooms());

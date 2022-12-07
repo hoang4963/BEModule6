@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HouseDTO {
+    private Long id;
     private String houseName;
     private String houseAddress;
     private int bedrooms;
