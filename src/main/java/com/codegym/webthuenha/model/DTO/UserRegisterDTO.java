@@ -25,4 +25,5 @@ public class UserRegisterDTO {
     private String email;
     @Pattern(regexp = "((09|03|07|08|05)+([0-9]{8})\\b)", message = "Please enter the correct phone number format")
     private String phone;
+    private String avatar;
 }

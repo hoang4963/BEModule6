@@ -45,11 +45,15 @@ public class LoginController {
     }
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody UserRegisterDTO user) {
+        if (userService.checkDoubleUser(user.getUserName()).isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
       User users = new User();
       users.setUsername(user.getUserName());
       users.setPassword(user.getPassword());
       users.setEmail(user.getEmail());
       users.setPhoneNumber(user.getPhone());
+      users.setAvatar("src/assets/img/avatar.jpg");
       String role = "1";
       Long role1 = Long.parseLong(role);
       users.setRole(roleService.findById(role1).get());
