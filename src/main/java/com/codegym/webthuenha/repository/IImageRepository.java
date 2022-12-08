@@ -12,4 +12,7 @@ import java.util.Optional;
 public interface IImageRepository extends JpaRepository<Image, Long> {
     @Query(nativeQuery = true, value = "select  * from `images` where image_name = :name ")
     Optional<Image> searchImageByImageName(@Param("name") String name);
+
+    @Query(nativeQuery = true, value = "select images.* from images join houses_image where house_id = :id group by images.id;")
+    Iterable<Image> searchImageByHouseId(@Param("id") Long id);
 }

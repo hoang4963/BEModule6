@@ -1,6 +1,7 @@
 package com.codegym.webthuenha.model.DTO;
 
-
+import com.codegym.webthuenha.model.HouseStatus;
+import com.codegym.webthuenha.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class HouseDTO {
+public class HouseImageDTO {
     private Long id;
     private String houseName;
     private String houseAddress;
@@ -21,6 +22,6 @@ public class HouseDTO {
     private String image1;
     private String image2;
     private String image3;
-    private Long houseStatus;
-    private Long userId;
+    private HouseStatus houseStatus;
+    private User user;
 }

@@ -20,8 +20,8 @@ public class ImageController {
 
     @GetMapping("/lists")
     public ResponseEntity<Iterable<Image>> showAllUser() {
-        Iterable<Image> users = imageService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        Iterable<Image> images = imageService.findAll();
+        return new ResponseEntity<>(images, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -37,5 +37,10 @@ public class ImageController {
         }
         imageService.delete(id);
         return new ResponseEntity<>(imageOptional.get(), HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("house/{id}")
+    public ResponseEntity<Iterable<Image>> findByHouseId(@PathVariable Long id){
+        Iterable<Image> imageIterable = imageService.findByHouseId(id);
+        return new ResponseEntity<>(imageIterable, HttpStatus.OK);
     }
 }

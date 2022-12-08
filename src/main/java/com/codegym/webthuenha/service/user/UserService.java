@@ -51,4 +51,9 @@ public class UserService implements IUserService, UserDetailsService {
         User user = userRepository.findByUsername(username).get();
         return user;
     }
+
+    @Override
+    public Optional<User> checkDoubleUser(String username) {
+        return userRepository.checkDoubleUser(username);
+    }
 }

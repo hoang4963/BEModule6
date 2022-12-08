@@ -2,6 +2,7 @@ package com.codegym.webthuenha.controller.house;
 
 
 import com.codegym.webthuenha.model.DTO.HouseDTO;
+import com.codegym.webthuenha.model.DTO.HouseImageDTO;
 import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.Image;
 import com.codegym.webthuenha.service.house.IHouseService;
@@ -14,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -40,11 +41,12 @@ public class HouseController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<House> createHouse(@RequestBody HouseDTO houseDTO, BindingResult bindingResult) throws IOException {
+    public ResponseEntity<House> createHouse(@RequestBody HouseDTO houseDTO, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         House house = new House();
+        house.setId(houseDTO.getId());
         house.setHouseName(houseDTO.getHouseName());
         house.setHouseAddress(houseDTO.getHouseAddress());
         house.setBathrooms(houseDTO.getBathrooms());
@@ -77,5 +79,27 @@ public class HouseController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<House> deleteHouse() {
         return null;
+    }
+    @GetMapping("imageString/{id}")
+    public ResponseEntity<House> getOneHouse(@PathVariable Long id){
+        Optional<House> optionalHouse = houseService.findById(id);
+        if (!optionalHouse.isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        House house = optionalHouse.get();
+//        HouseImageDTO houseImageDTO = new HouseImageDTO();
+//        houseImageDTO.setId(house.getId());
+//        houseImageDTO.setHouseName(house.getHouseName());
+//        houseImageDTO.setHouseAddress(house.getHouseAddress());
+//        houseImageDTO.setBathrooms(house.getBathrooms());
+//        houseImageDTO.setBedrooms(house.getBedrooms());
+//        houseImageDTO.setDescription(house.getDescription());
+//        houseImageDTO.setRent(house.getRent());
+//        houseImageDTO.setUser(house.getUser());
+//        houseImageDTO.setHouseStatus(house.getStatus());
+//        houseImageDTO.setImage1(house.getImage().get(0).getImageName());
+//        houseImageDTO.setImage2(house.getImage().get(1).getImageName());
+//        houseImageDTO.setImage3(house.getImage().get(2).getImageName());
+        return new ResponseEntity<>(house, HttpStatus.OK);
     }
 }
