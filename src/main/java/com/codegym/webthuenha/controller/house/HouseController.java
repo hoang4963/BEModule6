@@ -2,7 +2,6 @@ package com.codegym.webthuenha.controller.house;
 
 
 import com.codegym.webthuenha.model.DTO.HouseDTO;
-import com.codegym.webthuenha.model.DTO.HouseImageDTO;
 import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.Image;
 import com.codegym.webthuenha.service.house.IHouseService;
@@ -40,8 +39,8 @@ public class HouseController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<House> createHouse(@RequestBody HouseDTO houseDTO, BindingResult bindingResult) {
+    @PostMapping("/create/{id}")
+    public ResponseEntity<House> createHouse(@PathVariable("id") Long id,@RequestBody HouseDTO houseDTO, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -53,20 +52,17 @@ public class HouseController {
         house.setBedrooms(houseDTO.getBedrooms());
         house.setDescription(houseDTO.getDescription());
         house.setRent(houseDTO.getRent());
-        Image image1 = new Image();
-        Image image2 = new Image();
-        Image image3 = new Image();
-        image1.setImageName(houseDTO.getImage1());
-        image2.setImageName(houseDTO.getImage2());
-        image3.setImageName(houseDTO.getImage3());
+        house.setStatus(houseStatusService.findById(houseDTO.getHouseStatus()).get());
+        Image image1 = new Image(houseDTO.getImage1());
+        Image image2 = new Image(houseDTO.getImage2());
+        Image image3 = new Image(houseDTO.getImage3());
         imageService.save(image1);
         imageService.save(image2);
         imageService.save(image3);
-        house.getImage().add(imageService.findByName(image1.getImageName()).get());
-        house.getImage().add(imageService.findByName(image2.getImageName()).get());
-        house.getImage().add(imageService.findByName(image3.getImageName()).get());
-        house.setStatus(houseStatusService.findById(houseDTO.getHouseStatus()).get());
-        house.setUser(userService.findById(houseDTO.getUserId()).get());
+        house.getImage().add(imageService.findByName(houseDTO.getImage1()).get());
+        house.getImage().add(imageService.findByName(houseDTO.getImage2()).get());
+        house.getImage().add(imageService.findByName(houseDTO.getImage3()).get());
+        house.setUser(userService.findById(id).get());
         houseService.save(house);
         return new ResponseEntity<>(houseService.save(house), HttpStatus.OK);
     }
