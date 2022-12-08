@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -52,16 +54,21 @@ public class HouseController {
         house.setBedrooms(houseDTO.getBedrooms());
         house.setDescription(houseDTO.getDescription());
         house.setRent(houseDTO.getRent());
-        house.setStatus(houseStatusService.findById(houseDTO.getHouseStatus()).get());
+        house.setStatus(houseStatusService.findById(houseDTO.getStatusId()).get());
         Image image1 = new Image(houseDTO.getImage1());
         Image image2 = new Image(houseDTO.getImage2());
         Image image3 = new Image(houseDTO.getImage3());
         imageService.save(image1);
         imageService.save(image2);
         imageService.save(image3);
-        house.getImage().add(imageService.findByName(houseDTO.getImage1()).get());
-        house.getImage().add(imageService.findByName(houseDTO.getImage2()).get());
-        house.getImage().add(imageService.findByName(houseDTO.getImage3()).get());
+        List<Image> imageList = new ArrayList<>();
+        imageList.add(imageService.findByName(image1.getImageName()).get());
+        imageList.add(imageService.findByName(image2.getImageName()).get());
+        imageList.add(imageService.findByName(image3.getImageName()).get());
+        house.setImage(imageList);
+//        house.getImage().add(imageService.findByName(houseDTO.getImage1()).get());
+//        house.getImage().add(imageService.findByName(houseDTO.getImage2()).get());
+//        house.getImage().add(imageService.findByName(houseDTO.getImage3()).get());
         house.setUser(userService.findById(id).get());
         houseService.save(house);
         return new ResponseEntity<>(houseService.save(house), HttpStatus.OK);
