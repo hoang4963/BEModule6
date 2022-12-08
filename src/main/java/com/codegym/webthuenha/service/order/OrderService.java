@@ -5,6 +5,7 @@ import com.codegym.webthuenha.repository.IOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,10 @@ public class OrderService implements IOrderService {
     @Override
     public void delete(Long id) {
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Order> checkTimeOrder(Long id, Date startTime, Date endTime) {
+        return orderRepository.checkOrder(id, startTime, endTime);
     }
 }
