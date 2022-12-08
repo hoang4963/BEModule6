@@ -1,8 +1,10 @@
 package com.codegym.webthuenha.controller.order;
 
+import com.codegym.webthuenha.model.DTO.OrderDTO;
 import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.model.OrderStatus;
+import com.codegym.webthuenha.model.User;
 import com.codegym.webthuenha.service.house.IHouseService;
 import com.codegym.webthuenha.service.order.IOrderService;
 import com.codegym.webthuenha.service.orderStatus.IOrderStatusService;
@@ -48,18 +50,45 @@ public class OrderController {
     public ResponseEntity<Optional<Order>> showOderById(@PathVariable Long id) {
         return new ResponseEntity<>(orderService.findById(id), HttpStatus.OK);
     }
+
     @PostMapping("/orders/{id}")
-    public ResponseEntity<Optional<Order>> createOrder(@PathVariable Long id, @RequestBody Order order ) throws Exception {
-        List lists = new ArrayList<>();
-        lists = (List) orderService.checkTimeOrder(id, order.getStarTime(), order.getEndTime());
-        Date date = new Date();
+    public ResponseEntity<Optional<Order>> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
+        List lists;
+        lists = (List) orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime());
+        System.out.println(lists.size());
+        System.out.println(orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
+        Date date;
+
 //        lấy time hiện hiện tại
-        date =  Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-        if (order.getStarTime().before(date) || order.getEndTime().before(date)){
-            if (lists.size() != 0){
+        date = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        boolean kt = orderDTO.getStartTime().before(date);
+        boolean kt1 = orderDTO.getEndTime().before(date);
+        if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
+            if (lists.size() != 0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            } else  {
+                House house;
+                house = houseService.findById(orderDTO.getHouseId()).get();
+                User user;
+                user = userService.findById(orderDTO.getUsersId()).get();
+                OrderStatus orderStatus;
+                orderStatus = orderStatusService.findById(orderDTO.getOrderStatusID()).get();
+                Order order = new Order();
+                order.setId(orderDTO.getId());
+                order.setUser(user);
+                order.setHouse(house);
+                order.setStatus(orderStatus);
+                order.setStarTime(orderDTO.getStartTime());
+                order.setEndTime(orderDTO.getEndTime());
+                order.setCreateTime(orderDTO.getCreateTime());
+                try {
+                    orderService.save(order);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            orderService.save(order);
+
+
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
