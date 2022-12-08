@@ -45,6 +45,9 @@ public class LoginController {
     }
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody UserRegisterDTO user) {
+        if (userService.checkDoubleUser(user.getUserName()).isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
       User users = new User();
       users.setUsername(user.getUserName());
       users.setPassword(user.getPassword());
