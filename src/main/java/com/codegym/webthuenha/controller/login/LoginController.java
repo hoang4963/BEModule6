@@ -53,6 +53,7 @@ public class LoginController {
       users.setPassword(user.getPassword());
       users.setEmail(user.getEmail());
       users.setPhoneNumber(user.getPhone());
+      users.setAvatar("src/assets/img/avatar.jpg");
       String role = "1";
       Long role1 = Long.parseLong(role);
       users.setRole(roleService.findById(role1).get());
