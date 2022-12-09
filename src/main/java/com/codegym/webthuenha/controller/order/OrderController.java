@@ -61,8 +61,8 @@ public class OrderController {
 
 //        lấy time hiện hiện tại
         date = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-        boolean kt = orderDTO.getStartTime().before(date);
-        boolean kt1 = orderDTO.getEndTime().before(date);
+//        boolean kt = orderDTO.getStartTime().before(date);
+//        boolean kt1 = orderDTO.getEndTime().before(date);
         if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
             if (lists.size() != 0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -78,6 +78,7 @@ public class OrderController {
                 order.setUser(user);
                 order.setHouse(house);
                 order.setStatus(orderStatus);
+//                order.setStatus();
                 order.setStarTime(orderDTO.getStartTime());
                 order.setEndTime(orderDTO.getEndTime());
                 order.setCreateTime(orderDTO.getCreateTime());
