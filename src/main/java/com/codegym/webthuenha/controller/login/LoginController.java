@@ -15,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin("*")
 public class LoginController {
@@ -63,5 +65,16 @@ public class LoginController {
     @GetMapping("/user")
     public ResponseEntity<String> user() {
         return new ResponseEntity<>("User", HttpStatus.OK);
+    }
+    @PutMapping("/editPassword/{id}")
+    public ResponseEntity<User> updatePassWord(@PathVariable Long id,@RequestBody String password){
+        Optional<User> userOptional = this.userService.findById(id);
+        if (!userOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        User user = userOptional.get();
+        user.setPassword(password);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
