@@ -54,7 +54,7 @@ public class HouseController {
         house.setBedrooms(houseDTO.getBedrooms());
         house.setDescription(houseDTO.getDescription());
         house.setRent(houseDTO.getRent());
-        house.setStatus(houseStatusService.findById(houseDTO.getStatusId()).get());
+        house.setStatus(houseStatusService.findById(Long.parseLong("2")).get());
         Image image1 = new Image(houseDTO.getImage1());
         Image image2 = new Image(houseDTO.getImage2());
         Image image3 = new Image(houseDTO.getImage3());
