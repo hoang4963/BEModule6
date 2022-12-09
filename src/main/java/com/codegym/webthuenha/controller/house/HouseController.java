@@ -3,6 +3,7 @@ package com.codegym.webthuenha.controller.house;
 
 import com.codegym.webthuenha.model.DTO.HouseDTO;
 import com.codegym.webthuenha.model.House;
+import com.codegym.webthuenha.model.HouseStatus;
 import com.codegym.webthuenha.model.Image;
 import com.codegym.webthuenha.service.house.IHouseService;
 import com.codegym.webthuenha.service.housestatus.IHouseStatusService;
@@ -72,6 +73,17 @@ public class HouseController {
         house.setUser(userService.findById(id).get());
         houseService.save(house);
         return new ResponseEntity<>(houseService.save(house), HttpStatus.OK);
+    }
+    @PutMapping("/updateStatus/{id}/{idStatus}")
+    public ResponseEntity<House> updateStatus(@PathVariable("id") Long id, @PathVariable("idStatus") Long idStatus){
+        if (!houseService.findById(id).isPresent() || !houseStatusService.findById(idStatus).isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        House house = houseService.findById(id).get();
+        HouseStatus status = houseStatusService.findById(idStatus).get();
+        house.setStatus(status);
+        houseService.save(house);
+        return new ResponseEntity<>(house, HttpStatus.OK);
     }
 
     @PutMapping("/edit/{id}")
