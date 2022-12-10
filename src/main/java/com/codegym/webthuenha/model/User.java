@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Entity
 @NoArgsConstructor
@@ -19,8 +19,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @NotEmpty
+    @Size(min = 6)
     private String username;
     @NotNull
+    @NotEmpty
+    @Size(min = 6,max = 8)
     private String password;
     @Column(columnDefinition = "nvarchar(800)")
     private String fullName;
@@ -28,7 +32,9 @@ public class User {
     private String avatar;
     @Column(columnDefinition = "nvarchar(800)")
     private String userAddress;
+    @Email
     private String email;
+    @Pattern(regexp = "(09|03|07|08|05)+([0-9]{8})\\b")
     private String phoneNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)

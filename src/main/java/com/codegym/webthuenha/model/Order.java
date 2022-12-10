@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -33,8 +34,10 @@ public class Order {
     @JoinColumn(name = "order_status_id")
     private OrderStatus status;
     @NotNull
+    @NotEmpty
     private Date starTime;
     @NotNull
+    @NotEmpty
     private Date endTime;
     @NotNull
     private Date createTime;
