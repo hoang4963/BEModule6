@@ -34,10 +34,8 @@ public class Order {
     @JoinColumn(name = "order_status_id")
     private OrderStatus status;
     @NotNull
-    @NotEmpty
     private Date starTime;
     @NotNull
-    @NotEmpty
     private Date endTime;
     @NotNull
     private Date createTime;
