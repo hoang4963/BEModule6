@@ -15,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin("*")
 public class LoginController {
@@ -45,11 +47,15 @@ public class LoginController {
     }
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody UserRegisterDTO user) {
+        if (userService.checkDoubleUser(user.getUserName()).isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
       User users = new User();
       users.setUsername(user.getUserName());
       users.setPassword(user.getPassword());
       users.setEmail(user.getEmail());
       users.setPhoneNumber(user.getPhone());
+      users.setAvatar("src/assets/img/avatar.jpg");
       String role = "1";
       Long role1 = Long.parseLong(role);
       users.setRole(roleService.findById(role1).get());
@@ -63,5 +69,16 @@ public class LoginController {
     @GetMapping("/user")
     public ResponseEntity<String> user() {
         return new ResponseEntity<>("User", HttpStatus.OK);
+    }
+    @PutMapping("/editPassword/{id}")
+    public ResponseEntity<User> updatePassWord(@PathVariable Long id,@RequestBody String password){
+        Optional<User> userOptional = this.userService.findById(id);
+        if (!userOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        User user = userOptional.get();
+        user.setPassword(password);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

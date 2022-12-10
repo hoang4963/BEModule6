@@ -19,4 +19,8 @@ public class Image {
     private Long id;
     @Column(columnDefinition = "nvarchar(500)")
     private String imageName;
+
+    public Image(String imageName) {
+        this.imageName = imageName;
+    }
 }

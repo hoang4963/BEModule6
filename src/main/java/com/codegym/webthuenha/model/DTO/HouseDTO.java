@@ -21,6 +21,4 @@ public class HouseDTO {
     private String image1;
     private String image2;
     private String image3;
-    private Long houseStatus;
-    private Long userId;
 }
