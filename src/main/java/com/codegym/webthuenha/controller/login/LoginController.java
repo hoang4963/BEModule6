@@ -2,6 +2,7 @@ package com.codegym.webthuenha.controller.login;
 import com.codegym.webthuenha.model.DTO.UserRegisterDTO;
 import com.codegym.webthuenha.model.JwtResponse;
 import com.codegym.webthuenha.model.User;
+import com.codegym.webthuenha.service.image.IImageService;
 import com.codegym.webthuenha.service.jwt.JwtService;
 import com.codegym.webthuenha.service.role.IRoleService;
 import com.codegym.webthuenha.service.user.IUserService;
@@ -28,6 +29,9 @@ public class LoginController {
     private IUserService userService;
     @Autowired
     private IRoleService roleService;
+
+    @Autowired
+    private IImageService iImageService;
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user){
         try {
@@ -51,9 +55,8 @@ public class LoginController {
       User users = new User();
       users.setUsername(user.getUserName());
       users.setPassword(user.getPassword());
-      users.setEmail(user.getEmail());
       users.setPhoneNumber(user.getPhone());
-      users.setAvatar("src/assets/img/avatar.jpg");
+      users.setAvatar(iImageService.findById(Long.parseLong("1")).get().getImageName());
       String role = "1";
       Long role1 = Long.parseLong(role);
       users.setRole(roleService.findById(role1).get());
