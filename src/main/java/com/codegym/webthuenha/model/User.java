@@ -24,7 +24,7 @@ public class User {
     private String username;
     @NotNull
     @NotEmpty
-    @Size(min = 6,max = 8)
+    @Size(min = 6)
     private String password;
     @Column(columnDefinition = "nvarchar(800)")
     private String fullName;
