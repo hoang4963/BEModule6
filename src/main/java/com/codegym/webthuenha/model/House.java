@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -21,13 +23,17 @@ public class House {
     private Long id;
     @NotNull
     @Column(columnDefinition = "nvarchar(200)")
+    @NotEmpty
     private String houseName;
     @Column(columnDefinition = "nvarchar(800)")
+    @NotEmpty
     private String houseAddress;
     private int bedrooms;
     private int bathrooms;
     @Column(columnDefinition = "nvarchar(1000)")
     private String description;
+    @NotEmpty
+    @Pattern(regexp = "(^[0-9])")
     private long rent;
     @OneToMany
     @JoinTable(name = "houses_image", joinColumns = {@JoinColumn(name = "house_id")},
