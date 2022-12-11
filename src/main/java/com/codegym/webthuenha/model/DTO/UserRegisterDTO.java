@@ -20,10 +20,8 @@ public class UserRegisterDTO {
 
     @Size(min = 6, max = 18, message = "Username must be between 6 and 18 characters")
     private String password;
-
-//    @Email( message = "Please enter the correct email format")
-    private String email;
+    private String confirmPassword;
     @Pattern(regexp = "((09|03|07|08|05)+([0-9]{8})\\b)", message = "Please enter the correct phone number format")
     private String phone;
-    private String confirmPassword;
+
 }
