@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface IUserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
-    @Query(value = "SELECT * FROM users where username = :usersname group by username;", nativeQuery = true)
+    @Query(value = "SELECT * FROM users where username = :usersname ", nativeQuery = true)
     Optional<User> checkDoubleUser(@Param("usersname") String username);
 }
