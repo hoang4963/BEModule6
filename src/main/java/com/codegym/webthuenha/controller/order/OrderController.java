@@ -51,6 +51,11 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/orders/{id}")
+    public ResponseEntity<Optional<Order>> showOrderByHouseId(@PathVariable Long id) {
+        return new ResponseEntity<>(orderService.findById(id), HttpStatus.OK);
+    }
+
     @PostMapping("/orders/{id}")
     public ResponseEntity<Optional<Order>> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
         List lists;
@@ -66,7 +71,7 @@ public class OrderController {
         if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
             if (lists.size() != 0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            } else  {
+            } else {
                 House house;
                 house = houseService.findById(orderDTO.getHouseId()).get();
                 User user;
