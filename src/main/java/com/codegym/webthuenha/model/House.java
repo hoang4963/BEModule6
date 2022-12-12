@@ -33,6 +33,7 @@ public class House {
     @Column(columnDefinition = "nvarchar(1000)")
     private String description;
     @NotEmpty
+//    @NotEmpty
 //    @Pattern(regexp = "(^[0-9])")
     private long rent;
     @OneToMany
