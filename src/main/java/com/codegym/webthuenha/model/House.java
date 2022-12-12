@@ -33,7 +33,7 @@ public class House {
     @Column(columnDefinition = "nvarchar(1000)")
     private String description;
     @NotEmpty
-    @Pattern(regexp = "(^[0-9])")
+//    @Pattern(regexp = "(^[0-9])")
     private long rent;
     @OneToMany
     @JoinTable(name = "houses_image", joinColumns = {@JoinColumn(name = "house_id")},
