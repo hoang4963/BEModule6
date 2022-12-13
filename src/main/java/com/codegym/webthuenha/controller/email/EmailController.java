@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 @RestController
 @CrossOrigin("*")
 public class EmailController {
@@ -16,12 +18,11 @@ public class EmailController {
 
     // Sending a simple Email
     @PostMapping("/sendMail")
-    public String
-    sendMail(@RequestBody EmailDetails details)
+    public String sendMail(@RequestBody EmailDetails details)
     {
         String status
                 = emailService.sendSimpleMail(details);
-
+        System.out.println("ddasdiasbt:"+ status);
         return status;
     }
 

@@ -92,7 +92,7 @@ public class OrderController {
                 order.setHouse(house);
                 order.setStatus(orderStatus);
 //                order.setStatus();
-                order.setStarTime(orderDTO.getStartTime());
+                order.setStartTime(orderDTO.getStartTime());
                 order.setEndTime(orderDTO.getEndTime());
                 order.setCreateTime(orderDTO.getCreateTime());
                 try {
@@ -101,7 +101,6 @@ public class OrderController {
                     e.printStackTrace();
                 }
             }
-
 
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
