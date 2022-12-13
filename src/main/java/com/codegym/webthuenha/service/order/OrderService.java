@@ -53,4 +53,7 @@ public class OrderService implements IOrderService {
         return orderRepository.getListBookingByUserId(id);
     }
 
+    public Iterable<Order> getOrderPast(Long id) {
+        return orderRepository.getOrderPast(id);
+    }
 }

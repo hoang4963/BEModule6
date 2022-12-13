@@ -43,7 +43,7 @@ public class UserController {
         newUser.setUserAddress(user.getUserAddress());
         newUser.setPhoneNumber(user.getPhoneNumber());
         newUser.setEmail(user.getEmail());
-        if (user.getAvatar() != null || user.getAvatar() != ""){
+        if (user.getAvatar() != null && user.getAvatar() != ""){
             newUser.setAvatar(user.getAvatar());
         }
         newUser.setAvatar(user.getAvatar());
