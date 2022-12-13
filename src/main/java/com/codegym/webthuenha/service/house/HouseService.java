@@ -33,7 +33,7 @@ public class HouseService implements IHouseService{
     }
 
     @Override
-    public Iterable<House> get5HouseByView() {
-        return houseReposiroty.get5HouseByView();
+    public Iterable<House> get5HouseByRent() {
+        return houseReposiroty.get5HouseByRent();
     }
 }
