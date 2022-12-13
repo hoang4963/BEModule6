@@ -13,4 +13,7 @@ import java.util.Optional;
 public interface IOrderRepository extends JpaRepository<Order, Long> {
     @Query(nativeQuery = true, value = "select * from orders where house_id = :id and ((orders.star_time <= :startTime and orders.end_time >= :startTime) or (orders.star_time <= :endTime and orders.end_time >= :endTime))")
     Iterable<Order> checkOrder(@Param("id") Long id, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    @Query(nativeQuery = true, value = "select *from orders where house_id = :id")
+    Iterable<Order> showOrderByHouseId(@Param("id") Long id);
 }

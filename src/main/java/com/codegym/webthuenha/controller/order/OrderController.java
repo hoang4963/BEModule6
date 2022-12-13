@@ -51,6 +51,11 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/orders/house/{house_id}")
+    public ResponseEntity<Iterable<Order>> showOrderByHouseId(@PathVariable Long house_id) {
+        return new ResponseEntity<>(orderService.showOrderByHouseId(house_id), HttpStatus.OK);
+    }
+
     @PostMapping("/orders/{id}")
     public ResponseEntity<Optional<Order>> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
         List lists;
@@ -59,6 +64,7 @@ public class OrderController {
         System.out.println(orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
         Date date;
 
+
 //        lấy time hiện hiện tại
         date = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 //        boolean kt = orderDTO.getStartTime().before(date);
@@ -66,7 +72,7 @@ public class OrderController {
         if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
             if (lists.size() != 0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            } else  {
+            } else {
                 House house;
                 house = houseService.findById(orderDTO.getHouseId()).get();
                 User user;

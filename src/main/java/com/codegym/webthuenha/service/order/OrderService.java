@@ -42,4 +42,9 @@ public class OrderService implements IOrderService {
     public Iterable<Order> checkTimeOrder(Long id, Date startTime, Date endTime) {
         return orderRepository.checkOrder(id, startTime, endTime);
     }
+
+    @Override
+    public Iterable<Order> showOrderByHouseId(Long id) {
+        return orderRepository.showOrderByHouseId(id);
+    }
 }
