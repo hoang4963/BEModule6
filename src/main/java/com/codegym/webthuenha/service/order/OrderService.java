@@ -47,4 +47,9 @@ public class OrderService implements IOrderService {
     public Optional<Order> showOrderByHouseId(Long id) {
         return orderRepository.findById(id);
     }
+
+    @Override
+    public Iterable<Order> getOrderPast(Long id) {
+        return orderRepository.getOrderPast(id);
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -38,6 +39,12 @@ public class OrderController {
 
     @Autowired
     private IHouseService houseService;
+
+//    order truoc day
+    @GetMapping("/ordersPast/{id}")
+    public ResponseEntity<Iterable<Order>> getOrderPast(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.getOrderPast(id), HttpStatus.OK);
+    }
 
     // show tất cả order
     @GetMapping("/orders")
