@@ -37,7 +37,8 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+//	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+//	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
 }
 
 tasks.named('test') {
