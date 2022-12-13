@@ -44,8 +44,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Optional<Order> showOrderByHouseId(Long id) {
-        return orderRepository.findById(id);
+    public Iterable<Order> showOrderByHouseId(Long id) {
+        return orderRepository.showOrderByHouseId(id);
     }
 
     @Override
