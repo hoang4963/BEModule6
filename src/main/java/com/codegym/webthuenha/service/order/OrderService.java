@@ -49,8 +49,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Iterable<Order> getListBooking(Long id) {
-        return orderRepository.getListBooking(id);
+    public Iterable<Order> getListBookingByUserId(Long id) {
+        return orderRepository.getListBookingByUserId(id);
     }
 
 }

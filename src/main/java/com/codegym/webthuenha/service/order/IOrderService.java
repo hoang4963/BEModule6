@@ -11,5 +11,5 @@ public interface IOrderService extends IGeneralService<Order> {
     Iterable<Order> checkTimeOrder(Long id, Date startTime, Date endTime);
 
     Iterable<Order> showOrderByHouseId(Long id);
-    Iterable<Order> getListBooking(Long id);
+    Iterable<Order> getListBookingByUserId(Long id);
 }
