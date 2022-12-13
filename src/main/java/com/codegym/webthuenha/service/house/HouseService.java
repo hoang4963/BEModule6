@@ -31,4 +31,9 @@ public class HouseService implements IHouseService{
     public void delete(Long id) {
         houseReposiroty.deleteById(id);
     }
+
+    @Override
+    public Iterable<House> get5HouseByView() {
+        return houseReposiroty.get5HouseByView();
+    }
 }
