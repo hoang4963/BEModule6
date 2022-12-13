@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -39,6 +40,12 @@ public class OrderController {
     @Autowired
     private IHouseService houseService;
 
+//    order truoc day
+    @GetMapping("/ordersPast/{id}")
+    public ResponseEntity<Iterable<Order>> getOrderPast(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.getOrderPast(id), HttpStatus.OK);
+    }
+
     // show tất cả order
     @GetMapping("/orders")
     public ResponseEntity<Iterable<Order>> findAll() {
@@ -51,10 +58,10 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findById(id), HttpStatus.OK);
     }
 
-//    @GetMapping("/orders/{id}")
-//    public ResponseEntity<Optional<Order>> showOrderByHouseId(@PathVariable Long id) {
-//        return new ResponseEntity<>(orderService.findById(id), HttpStatus.OK);
-//    }
+    @GetMapping("/orders/house/{house_id}")
+    public ResponseEntity<Iterable<Order>> showOrderByHouseId(@PathVariable Long house_id) {
+        return new ResponseEntity<>(orderService.showOrderByHouseId(house_id), HttpStatus.OK);
+    }
 
     @PostMapping("/orders/{id}")
     public ResponseEntity<Optional<Order>> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
@@ -63,6 +70,7 @@ public class OrderController {
         System.out.println(lists.size());
         System.out.println(orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
         Date date;
+
 
 //        lấy time hiện hiện tại
         date = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());

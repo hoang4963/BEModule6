@@ -117,4 +117,11 @@ public class HouseController {
 //        houseImageDTO.setImage3(house.getImage().get(2).getImageName());
         return new ResponseEntity<>(house, HttpStatus.OK);
     }
+
+    @GetMapping("/list5house")
+    public ResponseEntity<Iterable<House>> show5HouseMax() {
+        Iterable<House> users = houseService.get5HouseByRent();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
 }
