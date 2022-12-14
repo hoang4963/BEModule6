@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface IRatingRepository extends JpaRepository<Rating, Long> {
-    @Query(value = "SELECT * from rating where house_id = :id;", nativeQuery = true)
-    Optional<Rating> HouseRating(@Param("id") Long id);
+    @Query(value = "SELECT * from rating where house_id = :id", nativeQuery = true)
+    Iterable<Rating> HouseRating(@Param("id") Long id);
 }

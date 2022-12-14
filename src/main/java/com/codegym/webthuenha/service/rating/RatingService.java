@@ -30,4 +30,8 @@ public class RatingService implements IRatingService {
     public void delete(Long id) {
         ratingRepository.deleteById(id);
     }
+
+    public Iterable<Rating> RatingByHouseId(Long id){
+        return ratingRepository.HouseRating(id);
+    }
 }

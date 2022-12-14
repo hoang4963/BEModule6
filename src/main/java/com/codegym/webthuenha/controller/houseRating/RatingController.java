@@ -5,10 +5,7 @@ import com.codegym.webthuenha.service.rating.IRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
@@ -21,5 +18,9 @@ public class RatingController {
         Iterable<Rating> users = ratingService.findAll();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @GetMapping("/getstar/{id}")
+    public ResponseEntity<Iterable<Rating>> RatingByHouseId(@PathVariable Long id){
+        return new ResponseEntity<>(ratingService.RatingByHouseId(id),HttpStatus.OK);
     }
 }
