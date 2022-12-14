@@ -120,8 +120,7 @@ public class HouseController {
 
     @GetMapping("/list5house")
     public ResponseEntity<Iterable<House>> show5HouseMax() {
-        Iterable<House> users = houseService.get5HouseByRent();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        Iterable<House> house = houseService.get5HouseByRent();
+        return new ResponseEntity<>(house, HttpStatus.OK);
     }
-
 }
