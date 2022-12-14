@@ -56,4 +56,5 @@ public class UserService implements IUserService, UserDetailsService {
     public Optional<User> checkDoubleUser(String username) {
         return userRepository.checkDoubleUser(username);
     }
+
 }

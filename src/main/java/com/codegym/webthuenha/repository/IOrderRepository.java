@@ -16,6 +16,11 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
     @Query(nativeQuery = true, value = "select * from orders where house_id = :id")
     Iterable<Order> showOrderByHouseId(@Param("id") Long id);
 
+    @Query(nativeQuery = true, value = "select * from orders where users_id = :id limit :start , 5")
+    Iterable<Order> getOrderPast(@Param("id") Long id, @Param("start") Long start);
+
+    @Query(nativeQuery = true, value = "select * from orders where users_id = :id")
+    Iterable<Order> getOrderByUserId(@Param("id") Long id);
     @Query(nativeQuery = true, value = "select o.* from orders o join houses h on h.id = o.house_id where h.user_id = :idabcd and o.order_status_id = 1")
     Iterable<Order> getListBookingByUserId(@Param("idabcd") Long id);
 
