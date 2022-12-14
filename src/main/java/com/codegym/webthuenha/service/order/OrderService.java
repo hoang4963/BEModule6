@@ -49,7 +49,13 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Iterable<Order> getOrderPast(Long id) {
-        return orderRepository.getOrderPast(id);
+    public Iterable<Order> getOrderByUserId(Long id) {
+        return orderRepository.getOrderByUserId(id);
+    }
+
+    @Override
+    public Iterable<Order> getOrderPast(Long id, Long start) {
+
+        return orderRepository.getOrderPast(id, ((5 * start)+1));
     }
 }

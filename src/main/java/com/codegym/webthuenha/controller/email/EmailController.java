@@ -3,6 +3,9 @@ package com.codegym.webthuenha.controller.email;
 import com.codegym.webthuenha.model.EmailDetails;
 import com.codegym.webthuenha.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +21,15 @@ public class EmailController {
 
     // Sending a simple Email
     @PostMapping("/sendMail")
-    public String sendMail(@RequestBody EmailDetails details)
+    public ResponseEntity<EmailDetails> sendMail(@RequestBody EmailDetails details, BindingResult bindingResult)
     {
+        if (bindingResult.hasFieldErrors()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         String status
                 = emailService.sendSimpleMail(details);
         System.out.println("ddasdiasbt:"+ status);
-        return status;
+        return new ResponseEntity<>(details, HttpStatus.OK);
     }
 
     // Sending email with attachment

@@ -41,11 +41,14 @@ public class OrderController {
     private IHouseService houseService;
 
 //    order truoc day
-    @GetMapping("/ordersPast/{id}")
-    public ResponseEntity<Iterable<Order>> getOrderPast(@PathVariable Long id){
-        return new ResponseEntity<>(orderService.getOrderPast(id), HttpStatus.OK);
+    @GetMapping("/ordersPast/{id}/{start}")
+    public ResponseEntity<Iterable<Order>> getOrderPast5(@PathVariable Long id, @PathVariable Long start){
+        return new ResponseEntity<>(orderService.getOrderPast(id, start), HttpStatus.OK);
     }
-
+    @GetMapping("/ordersByUser/{id}")
+    public ResponseEntity<Iterable<Order>> getOrderPast(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.getOrderByUserId(id), HttpStatus.OK);
+    }
     // show tất cả order
     @GetMapping("/orders")
     public ResponseEntity<Iterable<Order>> findAll() {
