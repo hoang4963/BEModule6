@@ -8,9 +8,11 @@ import lombok.*;
 @Getter
 @Setter
 public class EmailDetails {
-
+//    nguoi nhan
     private String recipient;
+//    body
     private String msgBody;
+//    tieu de
     private String subject;
     private String attachment;
 }

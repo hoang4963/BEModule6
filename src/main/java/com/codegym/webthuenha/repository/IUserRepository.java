@@ -14,4 +14,7 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
     @Query(value = "SELECT * FROM users where username = :usersname ", nativeQuery = true)
     Optional<User> checkDoubleUser(@Param("usersname") String username);
+
+    @Query(value = "select * from users where id = :id", nativeQuery = true)
+    Optional<User> getUserByid(@Param("id") Long id);
 }

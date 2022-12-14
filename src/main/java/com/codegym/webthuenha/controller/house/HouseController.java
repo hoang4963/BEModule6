@@ -2,9 +2,11 @@ package com.codegym.webthuenha.controller.house;
 
 
 import com.codegym.webthuenha.model.DTO.HouseDTO;
+import com.codegym.webthuenha.model.EmailDetails;
 import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.HouseStatus;
 import com.codegym.webthuenha.model.Image;
+import com.codegym.webthuenha.service.email.EmailService;
 import com.codegym.webthuenha.service.house.IHouseService;
 import com.codegym.webthuenha.service.housestatus.IHouseStatusService;
 import com.codegym.webthuenha.service.image.IImageService;
@@ -23,6 +25,9 @@ import java.util.Optional;
 @CrossOrigin("*")
 @RequestMapping("/house")
 public class HouseController {
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     IHouseService houseService;
@@ -120,8 +125,17 @@ public class HouseController {
 
     @GetMapping("/list5house")
     public ResponseEntity<Iterable<House>> show5HouseMax() {
-        Iterable<House> users = houseService.get5HouseByRent();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        Iterable<House> house = houseService.get5HouseByRent();
+        return new ResponseEntity<>(house, HttpStatus.OK);
     }
-
+    @PostMapping("/sendMail")
+    public ResponseEntity<EmailDetails> sendMail(@RequestBody EmailDetails details, BindingResult bindingResult)
+    {
+        if (bindingResult.hasFieldErrors()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        String status = emailService.sendSimpleMail(details);
+        System.out.println("ddasdiasbt:"+ status);
+        return new ResponseEntity<>(details, HttpStatus.OK);
+    }
 }
