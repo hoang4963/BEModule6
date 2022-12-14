@@ -128,10 +128,12 @@ public class OrderController {
     }
 
     //    check sửa trạng thái
-    @PutMapping("/orders/{id}")
-    public ResponseEntity<Order> changeStatus(@PathVariable Long id, Long statusId) {
+    @PutMapping("/orders/changeStatus/{id}/{idStatus}")
+    public ResponseEntity<Order> changeStatus(@PathVariable("id") Long id, @PathVariable("idStatus") Long idStatus) {
         Order order = orderService.findById(id).get();
-        OrderStatus orderStatus = orderStatusService.findById(statusId).get();
+        System.out.println(id);
+        System.out.println(idStatus);
+        OrderStatus orderStatus = orderStatusService.findById(idStatus).get();
         order.setStatus(orderStatus);
         orderService.save(order);
         return new ResponseEntity<>(order, HttpStatus.OK);
