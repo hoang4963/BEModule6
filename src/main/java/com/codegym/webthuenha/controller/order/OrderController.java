@@ -5,6 +5,7 @@ import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.model.OrderStatus;
 import com.codegym.webthuenha.model.User;
+import com.codegym.webthuenha.service.BookingService;
 import com.codegym.webthuenha.service.house.IHouseService;
 import com.codegym.webthuenha.service.order.IOrderService;
 import com.codegym.webthuenha.service.orderStatus.IOrderStatusService;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.List;
@@ -39,6 +39,10 @@ public class OrderController {
 
     @Autowired
     private IHouseService houseService;
+
+
+    @Autowired
+    private BookingService bookingService;
 
 //    order truoc day
     @GetMapping("/ordersPast/{id}/{start}")
@@ -61,6 +65,10 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/user/house/orders/{user_id}")
+    public ResponseEntity<Iterable<Order>> getListBookingByUserId(@PathVariable Long user_id) {
+        return new ResponseEntity<>(orderService.getListBookingByUserId(user_id), HttpStatus.OK);
+    }
     @GetMapping("/orders/house/{house_id}")
     public ResponseEntity<Iterable<Order>> showOrderByHouseId(@PathVariable Long house_id) {
         return new ResponseEntity<>(orderService.showOrderByHouseId(house_id), HttpStatus.OK);

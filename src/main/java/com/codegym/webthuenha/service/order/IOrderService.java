@@ -4,7 +4,6 @@ import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.service.IGeneralService;
 
 import java.util.Date;
-import java.util.Optional;
 
 public interface IOrderService extends IGeneralService<Order> {
     Iterable<Order> getAllOrder();
@@ -17,5 +16,7 @@ public interface IOrderService extends IGeneralService<Order> {
     Iterable<Order> showOrderByHouseId(Long id);
 
     Iterable<Order> getOrderByUserId(Long id);
+
+    Iterable<Order> getListBookingByUserId(Long id);
 
 }
