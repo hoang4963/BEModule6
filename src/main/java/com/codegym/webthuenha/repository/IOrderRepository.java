@@ -33,4 +33,7 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
 
     @Query(nativeQuery = true, value = "UPDATE orders SET order_status_id = 4 WHERE id = :id ")
     void updateStatusOrderCancel(@Param("id") Long id);
+
+    @Query(nativeQuery = true, value = "select * from orders where (order_status_id = 2 or order_status_id = 3) and users_id = :id and house_id = :houses_id")
+    Iterable<Order> createRating(@Param("id") Long id, @Param("houses_id") Long houses_id);
 }
