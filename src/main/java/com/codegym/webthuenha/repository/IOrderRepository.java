@@ -31,7 +31,7 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
     @Query(nativeQuery = true, value = "select * from orders where order_status_id <> 1 and users_id = :id")
     Iterable<Order> getOrderPast(@Param("id") Long id);
 
-    @Query(nativeQuery = true, value = "select * from orders where order_status_id = 1 and users_id = :id limit :start , 5")
+    @Query(nativeQuery = true, value = "select * from orders where (order_status_id = 1 or order_status_id = 2) and users_id = :id limit :start , 5")
     Iterable<Order> getOrderWaitConfirm(@Param("id") Long id, @Param("start") Long start);
 
     @Query(nativeQuery = true, value = "UPDATE orders SET order_status_id = 4 WHERE id = :id ")
