@@ -23,4 +23,6 @@ public class RatingController {
     public ResponseEntity<Iterable<Rating>> RatingByHouseId(@PathVariable Long id){
         return new ResponseEntity<>(ratingService.RatingByHouseId(id),HttpStatus.OK);
     }
+
+
 }
