@@ -48,8 +48,8 @@ public class HouseController {
     }
 
     @PostMapping("/create/{id}")
-    public ResponseEntity<House> createHouse(@PathVariable("id") Long id,@RequestBody HouseDTO houseDTO, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()){
+    public ResponseEntity<House> createHouse(@PathVariable("id") Long id, @RequestBody HouseDTO houseDTO, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         House house = new House();
@@ -61,27 +61,24 @@ public class HouseController {
         house.setDescription(houseDTO.getDescription());
         house.setRent(houseDTO.getRent());
         house.setStatus(houseStatusService.findById(Long.parseLong("2")).get());
-        Image image1 = new Image(houseDTO.getImage1());
-        Image image2 = new Image(houseDTO.getImage2());
-        Image image3 = new Image(houseDTO.getImage3());
-        imageService.save(image1);
-        imageService.save(image2);
-        imageService.save(image3);
         List<Image> imageList = new ArrayList<>();
-        imageList.add(imageService.findByName(image1.getImageName()).get());
-        imageList.add(imageService.findByName(image2.getImageName()).get());
-        imageList.add(imageService.findByName(image3.getImageName()).get());
-        house.setImage(imageList);
-//        house.getImage().add(imageService.findByName(houseDTO.getImage1()).get());
-//        house.getImage().add(imageService.findByName(houseDTO.getImage2()).get());
-//        house.getImage().add(imageService.findByName(houseDTO.getImage3()).get());
+
+        for (int i = 0; i < houseDTO.getListImage().size(); i++) {
+            Image image = new Image(houseDTO.getListImage().get(i));
+            imageService.save(image);
+            imageList.add(imageService.findByName(image.getImageName()).get());
+            house.setImage(imageList);
+
+
+        }
         house.setUser(userService.findById(id).get());
         houseService.save(house);
         return new ResponseEntity<>(houseService.save(house), HttpStatus.OK);
     }
+
     @PutMapping("/updateStatus/{id}/{idStatus}")
-    public ResponseEntity<House> updateStatus(@PathVariable("id") Long id, @PathVariable("idStatus") Long idStatus){
-        if (!houseService.findById(id).isPresent() || !houseStatusService.findById(idStatus).isPresent()){
+    public ResponseEntity<House> updateStatus(@PathVariable("id") Long id, @PathVariable("idStatus") Long idStatus) {
+        if (!houseService.findById(id).isPresent() || !houseStatusService.findById(idStatus).isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         House house = houseService.findById(id).get();
@@ -100,10 +97,11 @@ public class HouseController {
     public ResponseEntity<House> deleteHouse() {
         return null;
     }
+
     @GetMapping("imageString/{id}")
-    public ResponseEntity<House> getOneHouse(@PathVariable Long id){
+    public ResponseEntity<House> getOneHouse(@PathVariable Long id) {
         Optional<House> optionalHouse = houseService.findById(id);
-        if (!optionalHouse.isPresent()){
+        if (!optionalHouse.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         House house = optionalHouse.get();
@@ -128,14 +126,14 @@ public class HouseController {
         Iterable<House> house = houseService.get5HouseByRent();
         return new ResponseEntity<>(house, HttpStatus.OK);
     }
+
     @PostMapping("/sendMail")
-    public ResponseEntity<EmailDetails> sendMail(@RequestBody EmailDetails details, BindingResult bindingResult)
-    {
-        if (bindingResult.hasFieldErrors()){
+    public ResponseEntity<EmailDetails> sendMail(@RequestBody EmailDetails details, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         String status = emailService.sendSimpleMail(details);
-        System.out.println("ddasdiasbt:"+ status);
+        System.out.println("ddasdiasbt:" + status);
         return new ResponseEntity<>(details, HttpStatus.OK);
     }
 }
