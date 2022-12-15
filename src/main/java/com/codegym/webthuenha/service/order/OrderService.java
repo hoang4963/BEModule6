@@ -55,11 +55,25 @@ public class OrderService implements IOrderService {
 
     @Override
     public Iterable<Order> getOrderPast(Long id, Long start) {
-        return orderRepository.getOrderPast(id, ((5 * start)+1));
+        return orderRepository.getOrderPast(id, ((5 * start)));
     }
 
-    public Iterable<Order> getListBookingByUserId(Long id) {
-        return orderRepository.getListBookingByUserId(id);
+    public Iterable<Order> getListBookingByHouseOfUserId(Long id, Long start) {
+        return orderRepository.getListBookingByHouseOfUserId(id, ((5 * start)+1));
     }
 
+    @Override
+    public Iterable<Order> getOrderWaitConfirm(Long id, Long start) {
+        return orderRepository.getOrderWaitConfirm(id, ((5 * start)));
+    }
+
+    @Override
+    public Iterable<Order> getOrderPast(Long id) {
+        return orderRepository.getOrderPast(id);
+    }
+
+    @Override
+    public void updateStatusOrderCancel(Long id) {
+        orderRepository.updateStatusOrderCancel(id);
+    }
 }
