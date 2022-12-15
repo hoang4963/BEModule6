@@ -44,15 +44,40 @@ public class OrderController {
     @Autowired
     private BookingService bookingService;
 
+//    huy order
+    @PutMapping("/cancelOrderByUser/{id}")
+    public ResponseEntity<Order> cancelOrderByUser(@PathVariable Long id, @RequestBody String string){
+
+        Optional<Order> order = orderService.findById(id);
+        if (!order.isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Order newOrder = order.get();
+        newOrder.setStatus(orderStatusService.findById(Long.parseLong("4")).get());
+        orderService.save(newOrder);
+        return new ResponseEntity<>(newOrder, HttpStatus.OK);
+    }
+
+//    order cho confirm
+    @GetMapping("/ordersWaitConfirm/{id}/{start}")
+    public ResponseEntity<Iterable<Order>> getOrderWaitConfirm(@PathVariable Long id,  @PathVariable Long start){
+        return new ResponseEntity<>(orderService.getOrderWaitConfirm(id, start), HttpStatus.OK);
+    }
+
 //    order truoc day
     @GetMapping("/ordersPast/{id}/{start}")
     public ResponseEntity<Iterable<Order>> getOrderPast5(@PathVariable Long id, @PathVariable Long start){
         return new ResponseEntity<>(orderService.getOrderPast(id, start), HttpStatus.OK);
     }
-    @GetMapping("/ordersByUser/{id}")
+    @GetMapping("/ordersPastByUser/{id}")
     public ResponseEntity<Iterable<Order>> getOrderPast(@PathVariable Long id){
-        return new ResponseEntity<>(orderService.getOrderByUserId(id), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.getOrderPast(id), HttpStatus.OK);
     }
+    @GetMapping("/ordersWaitByUser/{id}")
+    public ResponseEntity<Iterable<Order>> getOrderWait(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.getOrderPast(id), HttpStatus.OK);
+    }
+
     // show tất cả order
     @GetMapping("/orders")
     public ResponseEntity<Iterable<Order>> findAll() {
