@@ -59,7 +59,12 @@ public class OrderService implements IOrderService {
     }
 
     public Iterable<Order> getListBookingByHouseOfUserId(Long id, Long start) {
-        return orderRepository.getListBookingByHouseOfUserId(id, ((5 * start)+1));
+        return orderRepository.getListBookingByHouseOfUserId(id, ((5 * start)));
+    }
+
+    @Override
+    public Iterable<Order> getListBookingByUserId(Long id) {
+        return orderRepository.getListBookingByUserId(id);
     }
 
     @Override

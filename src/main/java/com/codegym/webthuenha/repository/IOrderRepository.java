@@ -23,15 +23,15 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
     @Query(nativeQuery = true, value = "select * from orders where users_id = :id")
     Iterable<Order> getOrderByUserId(@Param("id") Long id);
 
-    @Query(nativeQuery = true, value = "select o.* from orders o join houses h on h.id = o.house_id where h.user_id = :idabcd and o.order_status_id = 1")
-    Iterable<Order> getListBookingByUserId(@Param("idabcd") Long id);
-    @Query(nativeQuery = true, value = "select o.* from orders o join houses h on h.id = o.house_id where h.user_id = :userId and o.order_status_id = 1 limit :start , 5 order by o.start_time ")
+    @Query(nativeQuery = true, value = "select o.* from orders o join houses h on h.id = o.house_id where h.user_id = :userId and o.order_status_id = 1")
+    Iterable<Order> getListBookingByUserId(@Param("userId") Long id);
+    @Query(nativeQuery = true, value = "select o.* from orders o join houses h on h.id = o.house_id where h.user_id = :userId and o.order_status_id = 1 order by o.start_time limit :start , 5 ")
     Iterable<Order> getListBookingByHouseOfUserId(@Param("userId")Long userId, @Param("start")Long start);
 
     @Query(nativeQuery = true, value = "select * from orders where order_status_id <> 1 and users_id = :id")
     Iterable<Order> getOrderPast(@Param("id") Long id);
 
-    @Query(nativeQuery = true, value = "select * from orders where order_status_id = 1 and users_id = :id limit :start , 5")
+    @Query(nativeQuery = true, value = "select * from orders where (order_status_id = 1 or order_status_id = 2) and users_id = :id limit :start , 5")
     Iterable<Order> getOrderWaitConfirm(@Param("id") Long id, @Param("start") Long start);
 
     @Query(nativeQuery = true, value = "UPDATE orders SET order_status_id = 4 WHERE id = :id ")

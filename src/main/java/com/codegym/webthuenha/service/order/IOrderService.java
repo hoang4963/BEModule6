@@ -18,6 +18,7 @@ public interface IOrderService extends IGeneralService<Order> {
     Iterable<Order> getOrderByUserId(Long id);
 
     Iterable<Order> getListBookingByHouseOfUserId(Long id, Long start);
+    Iterable<Order> getListBookingByUserId(Long id);
 
     Iterable<Order> getOrderWaitConfirm(Long id, Long start);
 

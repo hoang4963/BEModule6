@@ -94,6 +94,10 @@ public class OrderController {
     public ResponseEntity<Iterable<Order>> getListBookingByHouseOfUserId(@PathVariable Long user_id, @PathVariable Long start) {
         return new ResponseEntity<>(orderService.getListBookingByHouseOfUserId(user_id,start), HttpStatus.OK);
     }
+    @GetMapping("/user/house/orders/{user_id}")
+    public ResponseEntity<Iterable<Order>> getListBookingByUserId(@PathVariable Long user_id) {
+        return new ResponseEntity<>(orderService.getListBookingByUserId(user_id), HttpStatus.OK);
+    }
 
     @GetMapping("/orders/house/{house_id}")
     public ResponseEntity<Iterable<Order>> showOrderByHouseId(@PathVariable Long house_id) {
