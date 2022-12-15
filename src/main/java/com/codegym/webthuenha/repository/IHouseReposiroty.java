@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IHouseReposiroty extends JpaRepository<House, Long> {
-    @Query(value = "select h.*, count(h.id) as luotthue from houses h join orders o on h.id = o.house_id group by h.id order by luotthue desc limit 5" , nativeQuery = true)
+    @Query(value = "select h.*, count(h.id) as luotthue from houses h join orders o on h.id = o.house_id where (order_status_id=2 or order_status_id =3) group by h.id order by luotthue desc limit 5" , nativeQuery = true)
     Iterable<House>get5HouseByRent();
 }
