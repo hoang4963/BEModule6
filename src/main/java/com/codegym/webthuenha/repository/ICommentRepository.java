@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ICommentRepository extends JpaRepository<Comment, Long> {
-    @Query(value = "SELECT * from comments where house_id = :id;", nativeQuery = true)
-    Optional<Comment> HouseComment(@Param("id") Long id);
+    @Query(value = "SELECT * from comments where house_id = :id", nativeQuery = true)
+    Iterable<Comment> HouseComment(@Param("id") Long id);
 }

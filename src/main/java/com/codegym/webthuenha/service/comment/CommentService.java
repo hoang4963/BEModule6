@@ -1,6 +1,7 @@
 package com.codegym.webthuenha.service.comment;
 
 import com.codegym.webthuenha.model.Comment;
+import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.repository.ICommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,15 @@ public class CommentService implements ICommentService{
     @Override
     public void delete(Long id) {
     commentRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Comment> CommentByHouseId(Long id) {
+        return commentRepository.HouseComment(id);
+    }
+
+    @Override
+    public Iterable<Order> createComment(Long id, Long houses_id) {
+        return null;
     }
 }
