@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,7 +20,7 @@ public class HouseDTO {
     private int bathrooms;
     private String description;
     private long rent;
-    private String image1;
-    private String image2;
-    private String image3;
+    private List<String> listImage;
+//    private String image2;
+//    private String image3;
 }

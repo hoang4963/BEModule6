@@ -88,7 +88,7 @@ public class OrderController {
 //        boolean kt = orderDTO.getStartTime().before(date);
 //        boolean kt1 = orderDTO.getEndTime().before(date);
         if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
-            if (lists.size() != 0) {
+            if (lists.size() != 0 ) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             } else {
                 House house;
