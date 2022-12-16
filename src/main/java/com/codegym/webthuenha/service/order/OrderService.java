@@ -81,4 +81,9 @@ public class OrderService implements IOrderService {
     public void updateStatusOrderCancel(Long id) {
         orderRepository.updateStatusOrderCancel(id);
     }
+
+    @Override
+    public Iterable<Order> showOrderByHouseIdStatus1(Long id) {
+        return orderRepository.showOrderByHouseIdStatus1(id);
+    }
 }
