@@ -169,4 +169,9 @@ public class OrderController {
         orderService.save(order);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
+
+    @GetMapping("/showOrderByHouseIdStatus1/{id}")
+    public ResponseEntity<Iterable<Order>> showOrderByHouseIdStatus1(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.showOrderByHouseIdStatus1(id), HttpStatus.OK);
+    }
 }

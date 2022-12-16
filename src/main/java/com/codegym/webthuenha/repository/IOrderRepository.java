@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<Order, Long> {
-    @Query(nativeQuery = true, value = "select * from orders where house_id = :id and (orders.order_status_id <> 1 and ((orders.start_time <= :startTime and orders.end_time >= :startTime) or (orders.start_time <= :endTime and orders.end_time >= :endTime)))")
+    @Query(nativeQuery = true, value = "select * from orders where house_id = :id and ((orders.order_status_id = 2 or orders.order_status_id =3)  and ((orders.start_time <= :startTime and orders.end_time >= :startTime) or (orders.start_time <= :endTime and orders.end_time >= :endTime)))")
     Iterable<Order> checkOrder(@Param("id") Long id, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     @Query(nativeQuery = true, value = "select * from orders where house_id = :id and (orders.order_status_id =2)")
@@ -25,8 +25,9 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
 
     @Query(nativeQuery = true, value = "select o.* from orders o join houses h on h.id = o.house_id where h.user_id = :userId and o.order_status_id = 1")
     Iterable<Order> getListBookingByUserId(@Param("userId") Long id);
+
     @Query(nativeQuery = true, value = "select o.* from orders o join houses h on h.id = o.house_id where h.user_id = :userId and o.order_status_id = 1 order by o.start_time limit :start , 5 ")
-    Iterable<Order> getListBookingByHouseOfUserId(@Param("userId")Long userId, @Param("start")Long start);
+    Iterable<Order> getListBookingByHouseOfUserId(@Param("userId") Long userId, @Param("start") Long start);
 
     @Query(nativeQuery = true, value = "select * from orders where order_status_id <> 1 and users_id = :id")
     Iterable<Order> getOrderPast(@Param("id") Long id);
@@ -39,4 +40,7 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
 
     @Query(nativeQuery = true, value = "select * from orders where (order_status_id = 2 or order_status_id = 3) and users_id = :id and house_id = :houses_id")
     Iterable<Order> createRating(@Param("id") Long id, @Param("houses_id") Long houses_id);
+
+    @Query(nativeQuery = true, value = "select * from orders where order_status_id = 1 and house_id = :houses_id")
+    Iterable<Order> showOrderByHouseIdStatus1(@Param("houses_id") Long houses_id);
 }
