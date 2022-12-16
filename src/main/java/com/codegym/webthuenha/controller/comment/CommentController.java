@@ -2,6 +2,7 @@ package com.codegym.webthuenha.controller.comment;
 
 import com.codegym.webthuenha.model.Comment;
 import com.codegym.webthuenha.model.DTO.CommentDTO;
+import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.service.comment.ICommentService;
 import com.codegym.webthuenha.service.house.HouseService;
 import com.codegym.webthuenha.service.user.UserService;
@@ -34,6 +35,9 @@ public class CommentController {
         comment.setUser(userService.findById(commentDTO.getUserId()).get());
        commentService.save(comment);
        return new ResponseEntity<>(comment,HttpStatus.OK);
-
+    }
+    @GetMapping("/createcomment/{id}")
+    public ResponseEntity<Iterable<Comment>> createComment(@PathVariable(name = "id") Long id){
+        return new ResponseEntity<>(commentService.CommentByHouseId(id),HttpStatus.OK);
     }
 }
