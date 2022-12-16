@@ -109,7 +109,7 @@ public class OrderController {
         List lists;
         lists = (List) orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime());
         System.out.println(lists.size());
-        System.out.println(orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
+        System.out.println(orderService.checkgiTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
         Date date;
 
 
