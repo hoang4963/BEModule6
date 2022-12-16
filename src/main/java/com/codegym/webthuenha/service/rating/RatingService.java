@@ -1,6 +1,9 @@
 package com.codegym.webthuenha.service.rating;
 
+import com.codegym.webthuenha.model.Comment;
+import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.model.Rating;
+import com.codegym.webthuenha.repository.IOrderRepository;
 import com.codegym.webthuenha.repository.IRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,8 @@ import java.util.Optional;
 public class RatingService implements IRatingService {
     @Autowired
     IRatingRepository ratingRepository;
+    @Autowired
+    IOrderRepository orderRepository;
     @Override
     public Iterable<Rating> findAll() {
         return ratingRepository.findAll();
@@ -33,5 +38,10 @@ public class RatingService implements IRatingService {
 
     public Iterable<Rating> RatingByHouseId(Long id){
         return ratingRepository.HouseRating(id);
+    }
+
+    @Override
+    public Iterable<Order> createRating(Long id, Long houses_id) {
+        return orderRepository.createRating(id, houses_id);
     }
 }

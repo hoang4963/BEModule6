@@ -9,9 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CommentDTO {
+public class RatingDTO {
     private Long id;
-    private Long houseId;
-    private Long userId;
-    private String houseComment;
+    private Long houseId;    private Long userId;
+    private String houseRating;
 }
