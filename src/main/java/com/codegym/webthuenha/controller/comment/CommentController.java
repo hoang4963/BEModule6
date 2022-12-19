@@ -44,7 +44,6 @@ public class CommentController {
     @GetMapping("/listCommentRead/{userId}")
     public ResponseEntity<Iterable<Comment>> CommentRead(@PathVariable(name = "userId") Long userId) {
         Iterable<Comment> users = commentService.getAllByCommentAndIsReadTrue(userId);
-
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
     @GetMapping("/listCommentNotRead/{userId}")
@@ -59,4 +58,5 @@ public class CommentController {
         commentService.save(comment);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
+
 }
