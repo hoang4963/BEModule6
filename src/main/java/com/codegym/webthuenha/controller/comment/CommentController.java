@@ -50,7 +50,6 @@ public class CommentController {
     @GetMapping("/listCommentNotRead/{userId}")
     public ResponseEntity<Iterable<Comment>> CommentNotRead(@PathVariable(name = "userId") Long userId) {
         Iterable<Comment> users = commentService.getAllByCommentAndIsReadFalse(userId);
-
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
     @PutMapping("/updateIsRead/{id}")
