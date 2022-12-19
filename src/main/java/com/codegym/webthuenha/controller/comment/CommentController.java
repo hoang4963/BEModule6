@@ -40,4 +40,8 @@ public class CommentController {
     public ResponseEntity<Iterable<Comment>> createComment(@PathVariable(name = "id") Long id){
         return new ResponseEntity<>(commentService.CommentByHouseId(id),HttpStatus.OK);
     }
+    @GetMapping("/detail/{house_id}/{start}")
+    public ResponseEntity<Iterable<Comment>> getListCommentByHouseOfUserId(@PathVariable Long house_id, @PathVariable Long start) {
+        return new ResponseEntity<>(commentService.getListCommentByHouseOfUserId(house_id,start), HttpStatus.OK);
+    }
 }

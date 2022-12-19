@@ -8,4 +8,5 @@ import com.codegym.webthuenha.service.IGeneralService;
 public interface ICommentService extends IGeneralService<Comment> {
     public Iterable<Comment> CommentByHouseId(Long id);
     public Iterable<Order> createComment(Long id, Long houses_id);
+    Iterable<Comment> getListCommentByHouseOfUserId(Long userId, Long start);
 }
