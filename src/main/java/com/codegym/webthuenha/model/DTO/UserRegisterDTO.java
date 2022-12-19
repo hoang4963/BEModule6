@@ -15,13 +15,15 @@ import javax.validation.constraints.Size;
 @Setter
 public class UserRegisterDTO {
 
-    @Size(min = 6, max = 18, message = "Username must be between 6 and 18 characters")
+    @Size(min = 6)
     private String userName;
 
-    @Size(min = 6, max = 18, message = "Username must be between 6 and 18 characters")
+    @Size(min = 6)
     private String password;
     private String confirmPassword;
-    @Pattern(regexp = "((09|03|07|08|05)+([0-9]{8})\\b)", message = "Please enter the correct phone number format")
+    @Pattern(regexp = "((09|03|07|08|05)+([0-9]{8})\\b)")
     private String phone;
+    @Email
+    private String email;
 
 }

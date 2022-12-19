@@ -1,5 +1,6 @@
 package com.codegym.webthuenha.service.order;
 
+import com.codegym.webthuenha.model.DTO.Income;
 import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.repository.IOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +86,14 @@ public class OrderService implements IOrderService {
     @Override
     public Iterable<Order> showOrderByHouseIdStatus1(Long id) {
         return orderRepository.showOrderByHouseIdStatus1(id);
+    }
+
+    @Override
+    public Iterable<Order> getIncome(Income income) {
+        Long houseId = Long.parseLong(income.getHouseId());
+        String[] splits = income.getMonth().split("-");
+        Integer month = Integer.parseInt(splits[1]);
+        Integer year = Integer.parseInt(splits[0]);
+        return orderRepository.getIncome(houseId, month, year);
     }
 }

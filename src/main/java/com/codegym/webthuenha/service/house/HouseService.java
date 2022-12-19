@@ -46,4 +46,7 @@ public class HouseService implements IHouseService{
     }
 
 
+    public Iterable<House> findByUserId(Long id) {
+        return houseRepository.findHouseByUserId(id);
+    }
 }

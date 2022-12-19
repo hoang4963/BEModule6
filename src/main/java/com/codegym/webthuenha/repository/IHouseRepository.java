@@ -15,4 +15,7 @@ public interface IHouseRepository extends JpaRepository<House, Long> {
 
     @Query(nativeQuery = true, value = "select h.* from houses h join orders on h.id = orders.house_id where h.bathroooms = :bath and h.bedroom = :bed and h.house_address like :address and ((order_status_id = 2 or order_status_id = 3) and ((orders.start_time > :endTime) or (orders.end_time < :startTime))) and (h.rent <= :maxRent and h.rent >= :minRent) group by h.id")
     Iterable<House> searchAllHouse(@Param("bath") int bath, @Param("bed") int bed, @Param("address") String address, @Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("maxRent") Long maxRent, @Param("minRent") Long minRent);
+
+    @Query(nativeQuery = true, value = "select * from houses where user_id = :id ")
+    Iterable<House> findHouseByUserId(@Param("id") Long id);
 }

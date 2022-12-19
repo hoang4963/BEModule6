@@ -28,4 +28,5 @@ public class Comment {
     @JoinColumn(name = "house_id")
     private House house;
 
+    private Boolean isRead;
 }

@@ -42,4 +42,14 @@ public class CommentService implements ICommentService{
     public Iterable<Order> createComment(Long id, Long houses_id) {
         return null;
     }
+
+    @Override
+    public Iterable<Comment> getAllByCommentAndIsReadTrue(Long userId) {
+        return commentRepository.getAllByCommentAndIsReadTrue(userId);
+    }
+
+    @Override
+    public Iterable<Comment> getAllByCommentAndIsReadFalse(Long userId) {
+        return commentRepository.getAllByCommentAndIsReadFalse(userId);
+    }
 }
