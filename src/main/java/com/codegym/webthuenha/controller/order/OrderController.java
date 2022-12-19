@@ -1,5 +1,6 @@
 package com.codegym.webthuenha.controller.order;
 
+import com.codegym.webthuenha.model.DTO.Income;
 import com.codegym.webthuenha.model.DTO.OrderDTO;
 import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.Order;
@@ -166,5 +167,10 @@ public class OrderController {
     @GetMapping("/showOrderByHouseIdStatus1/{id}")
     public ResponseEntity<Iterable<Order>> showOrderByHouseIdStatus1(@PathVariable Long id){
         return new ResponseEntity<>(orderService.showOrderByHouseIdStatus1(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/getIncome")
+    public ResponseEntity<Iterable<Order>> getIncome(@RequestBody Income income){
+        return new ResponseEntity<>(orderService.getIncome(income),HttpStatus.OK);
     }
 }

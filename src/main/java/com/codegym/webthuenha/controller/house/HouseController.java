@@ -167,4 +167,9 @@ public class HouseController {
         System.out.println("ddasdiasbt:" + status);
         return new ResponseEntity<>(details, HttpStatus.OK);
     }
+
+    @GetMapping("/findByUser/{id}")
+    public ResponseEntity<Iterable<House>> findByUserId(@PathVariable Long id){
+        return new ResponseEntity<>(houseService.findByUserId(id), HttpStatus.OK);
+    }
 }
