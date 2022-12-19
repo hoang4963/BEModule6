@@ -24,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,20 +47,17 @@ public class HouseController {
 
     @Autowired
     IUserService userService;
-    @Operation(summary = "Get all Houses", description = "Get all Houses", tags = { "house" })
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = House.class))))
-    })
+
+    @Operation(summary = "Get all Houses", description = "Get all Houses", tags = {"house"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = House.class))))})
     @GetMapping("/list")
     public ResponseEntity<Iterable<House>> showAllHouse() {
         Iterable<House> users = houseService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-    @Operation(summary = "Add a new house", description = "Add a new house", tags = { "house" })
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = { @Content(mediaType = "application/xml", schema = @Schema(implementation = House.class)), @Content(mediaType = "application/json", schema = @Schema(implementation = House.class)) }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
-    })
+
+    @Operation(summary = "Add a new house", description = "Add a new house", tags = {"house"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/xml", schema = @Schema(implementation = House.class)), @Content(mediaType = "application/json", schema = @Schema(implementation = House.class))}), @ApiResponse(responseCode = "405", description = "Invalid input")})
     @PostMapping("/create/{id}")
     public ResponseEntity<House> createHouse(@PathVariable("id") Long id, @RequestBody HouseDTO houseDTO, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
@@ -88,15 +86,9 @@ public class HouseController {
         houseService.save(house);
         return new ResponseEntity<>(houseService.save(house), HttpStatus.OK);
     }
-    @Operation(summary = "Update an status house", description = "Update an status house by Id", tags = { "house" })
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation",
-                    content =
-                            { @Content(mediaType = "application/xml", schema = @Schema(implementation = House.class)), @Content(mediaType = "application/json", schema = @Schema(implementation = House.class)) }
-            ),
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "House not found"),
-            @ApiResponse(responseCode = "405", description = "Validation exception") })
+
+    @Operation(summary = "Update an status house", description = "Update an status house by Id", tags = {"house"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/xml", schema = @Schema(implementation = House.class)), @Content(mediaType = "application/json", schema = @Schema(implementation = House.class))}), @ApiResponse(responseCode = "400", description = "Invalid ID supplied"), @ApiResponse(responseCode = "404", description = "House not found"), @ApiResponse(responseCode = "405", description = "Validation exception")})
     @PutMapping("/updateStatus/{id}/{idStatus}")
     public ResponseEntity<House> updateStatusOfHouse(@PathVariable("id") Long id, @PathVariable("idStatus") Long idStatus) {
         if (!houseService.findById(id).isPresent() || !houseStatusService.findById(idStatus).isPresent()) {
@@ -114,15 +106,12 @@ public class HouseController {
 //        return null;
 //    }
 
-//    @DeleteMapping("/delete/{id}")
+    //    @DeleteMapping("/delete/{id}")
 //    public ResponseEntity<House> deleteHouse() {
 //        return null;
 //    }
-    @Operation(summary = "Find house by ID", description = "Returns a single house", tags = { "house" })
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = House.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied", content = @Content),
-            @ApiResponse(responseCode = "404", description = "House not found", content = @Content) })
+    @Operation(summary = "Find house by ID", description = "Returns a single house", tags = {"house"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = House.class))), @ApiResponse(responseCode = "400", description = "Invalid ID supplied", content = @Content), @ApiResponse(responseCode = "404", description = "House not found", content = @Content)})
     @GetMapping("imageString/{id}")
     public ResponseEntity<House> getOneHouse(@PathVariable Long id) {
         Optional<House> optionalHouse = houseService.findById(id);
@@ -130,34 +119,19 @@ public class HouseController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         House house = optionalHouse.get();
-//        HouseImageDTO houseImageDTO = new HouseImageDTO();
-//        houseImageDTO.setId(house.getId());
-//        houseImageDTO.setHouseName(house.getHouseName());
-//        houseImageDTO.setHouseAddress(house.getHouseAddress());
-//        houseImageDTO.setBathrooms(house.getBathrooms());
-//        houseImageDTO.setBedrooms(house.getBedrooms());
-//        houseImageDTO.setDescription(house.getDescription());
-//        houseImageDTO.setRent(house.getRent());
-//        houseImageDTO.setUser(house.getUser());
-//        houseImageDTO.setHouseStatus(house.getStatus());
-//        houseImageDTO.setImage1(house.getImage().get(0).getImageName());
-//        houseImageDTO.setImage2(house.getImage().get(1).getImageName());
-//        houseImageDTO.setImage3(house.getImage().get(2).getImageName());
         return new ResponseEntity<>(house, HttpStatus.OK);
     }
-    @Operation(summary = "Get 5 houses", description = "Get 5 house", tags = { "house" })
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = House.class))))
-    })
+
+    @Operation(summary = "Get 5 houses", description = "Get 5 house", tags = {"house"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = House.class))))})
     @GetMapping("/list5house")
     public ResponseEntity<Iterable<House>> show5HouseByRent() {
         Iterable<House> house = houseService.get5HouseByRent();
         return new ResponseEntity<>(house, HttpStatus.OK);
     }
-    @Operation(summary = "Send mail", description = "Send mail", tags = { "mail" })
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = House.class))))
-    })
+
+    @Operation(summary = "Send mail", description = "Send mail", tags = {"mail"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = House.class))))})
     @PostMapping("/sendMail")
     public ResponseEntity<EmailDetails> sendMail(@RequestBody EmailDetails details, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
@@ -166,5 +140,11 @@ public class HouseController {
         String status = emailService.sendSimpleMail(details);
         System.out.println("ddasdiasbt:" + status);
         return new ResponseEntity<>(details, HttpStatus.OK);
+    }
+
+    @GetMapping("/searchAllHouse")
+    public ResponseEntity<Iterable<House>> searchAllHouse(@PathVariable int bath, int bed, String address, Date startTime, Date endTime, Long maxRent, Long minRent) {
+        Iterable<House> houses = houseService.searchAllHouse(bath, bed, address, startTime, endTime, maxRent, minRent);
+        return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 }
