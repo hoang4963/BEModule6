@@ -14,8 +14,9 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
     @Query(nativeQuery = true, value = "select * from orders where house_id = :id and " +
             "(CURDATE() <= :startTime or CURDATE() <= :endTime) and " +
             "((orders.order_status_id = 2 or orders.order_status_id =3)  and " +
-            "((orders.start_time >= :startTime and orders.start_time >= :endTime) or " +
-            "(orders.end_time <= :startTime and orders.end_time <= :endTime)))")
+            "((orders.end_time >= :startTime and orders.start_time <= :startTime ) or " +
+            "(orders.start_time <= :endTime and orders.end_time >= :endTime) or " +
+            "(orders.start_time >= :startTime and orders.end_time <= :endTime)))")
     Iterable<Order> checkOrder(@Param("id") Long id, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     @Query(nativeQuery = true, value = "select * from orders where house_id = :id and (orders.order_status_id =2)")

@@ -109,10 +109,8 @@ public class OrderController {
     public ResponseEntity<Optional<Order>> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
         List lists;
         lists = (List) orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime());
-//        System.out.println(lists.size());
-//        System.out.println(orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
-//        if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
-            if (lists.size() == 0 ) {
+        System.out.println(lists);
+            if (lists.size() != 0 ) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             } else {
                 House house;
@@ -126,7 +124,6 @@ public class OrderController {
                 order.setUser(user);
                 order.setHouse(house);
                 order.setStatus(orderStatus);
-//                order.setStatus();
                 order.setStartTime(orderDTO.getStartTime());
                 order.setEndTime(orderDTO.getEndTime());
                 order.setCreateTime(orderDTO.getCreateTime());
