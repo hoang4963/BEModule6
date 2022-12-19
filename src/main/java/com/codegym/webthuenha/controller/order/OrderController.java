@@ -1,5 +1,6 @@
 package com.codegym.webthuenha.controller.order;
 
+import com.codegym.webthuenha.model.DTO.Income;
 import com.codegym.webthuenha.model.DTO.OrderDTO;
 import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.Order;
@@ -108,17 +109,10 @@ public class OrderController {
     public ResponseEntity<Optional<Order>> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
         List lists;
         lists = (List) orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime());
-        System.out.println(lists.size());
-        System.out.println(orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
-        Date date;
-
-
-//        lấy time hiện hiện tại
-        date = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-//        boolean kt = orderDTO.getStartTime().before(date);
-//        boolean kt1 = orderDTO.getEndTime().before(date);
-        if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
-            if (lists.size() != 0 ) {
+//        System.out.println(lists.size());
+//        System.out.println(orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
+//        if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
+            if (lists.size() == 0 ) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             } else {
                 House house;
@@ -144,7 +138,7 @@ public class OrderController {
                 }
             }
 
-        }
+//        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -163,8 +157,8 @@ public class OrderController {
     @PutMapping("/orders/changeStatus/{id}/{idStatus}")
     public ResponseEntity<Order> changeStatus(@PathVariable("id") Long id, @PathVariable("idStatus") Long idStatus) {
         Order order = orderService.findById(id).get();
-        System.out.println(id);
-        System.out.println(idStatus);
+//        System.out.println(id);
+//        System.out.println(idStatus);
         OrderStatus orderStatus = orderStatusService.findById(idStatus).get();
         order.setStatus(orderStatus);
         orderService.save(order);
@@ -174,5 +168,10 @@ public class OrderController {
     @GetMapping("/showOrderByHouseIdStatus1/{id}")
     public ResponseEntity<Iterable<Order>> showOrderByHouseIdStatus1(@PathVariable Long id){
         return new ResponseEntity<>(orderService.showOrderByHouseIdStatus1(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/getIncome")
+    public ResponseEntity<Iterable<Order>> getIncome(@RequestBody Income income){
+        return new ResponseEntity<>(orderService.getIncome(income),HttpStatus.OK);
     }
 }

@@ -11,7 +11,11 @@ import java.util.Date;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<Order, Long> {
-    @Query(nativeQuery = true, value = "select * from orders where house_id = :id and ((orders.order_status_id = 2 or orders.order_status_id =3)  and ((orders.start_time <= :startTime and orders.end_time >= :startTime) or (orders.start_time <= :endTime and orders.end_time >= :endTime)))")
+    @Query(nativeQuery = true, value = "select * from orders where house_id = :id and " +
+            "(CURDATE() <= :startTime or CURDATE() <= :endTime) and " +
+            "((orders.order_status_id = 2 or orders.order_status_id =3)  and " +
+            "((orders.start_time >= :startTime and orders.start_time >= :endTime) or " +
+            "(orders.end_time <= :startTime and orders.end_time <= :endTime)))")
     Iterable<Order> checkOrder(@Param("id") Long id, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     @Query(nativeQuery = true, value = "select * from orders where house_id = :id and (orders.order_status_id =2)")
@@ -43,4 +47,7 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
 
     @Query(nativeQuery = true, value = "select * from orders where order_status_id = 1 and house_id = :houses_id")
     Iterable<Order> showOrderByHouseIdStatus1(@Param("houses_id") Long houses_id);
+
+    @Query(nativeQuery = true, value = "select * from orders where house_id = :houseId and month(end_time) = :month and year(end_time) = :year ")
+    Iterable<Order> getIncome(@Param("houseId") Long houseId, @Param("month") Integer month, @Param("year") Integer year);
 }

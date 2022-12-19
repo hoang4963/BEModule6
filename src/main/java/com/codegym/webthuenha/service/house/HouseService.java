@@ -36,4 +36,9 @@ public class HouseService implements IHouseService{
     public Iterable<House> get5HouseByRent() {
         return houseReposiroty.get5HouseByRent();
     }
+
+    @Override
+    public Iterable<House> findByUserId(Long id) {
+        return houseReposiroty.findHouseByUserId(id);
+    }
 }

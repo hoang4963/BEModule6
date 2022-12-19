@@ -6,4 +6,6 @@ import com.codegym.webthuenha.service.IGeneralService;
 public interface IHouseService extends IGeneralService<House> {
     Iterable<House>get5HouseByRent();
 
+    Iterable<House> findByUserId(Long id);
+
 }
