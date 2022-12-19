@@ -30,6 +30,7 @@ public class CommentController {
     @PostMapping("/housecomment")
     public ResponseEntity<Comment> HouseCommentDTO(@RequestBody CommentDTO commentDTO){
         Comment comment = new Comment();
+        comment.setIsRead(false);
         comment.setComment(commentDTO.getComment());
         comment.setHouse(houseService.findById(commentDTO.getHouseId()).get());
         comment.setUser(userService.findById(commentDTO.getUserId()).get());
@@ -39,5 +40,17 @@ public class CommentController {
     @GetMapping("/createcomment/{id}")
     public ResponseEntity<Iterable<Comment>> createComment(@PathVariable(name = "id") Long id){
         return new ResponseEntity<>(commentService.CommentByHouseId(id),HttpStatus.OK);
+    }
+    @GetMapping("/ListCommentRead/{userId}")
+    public ResponseEntity<Iterable<Comment>> CommentRead(@PathVariable(name = "userId") Long userId) {
+        Iterable<Comment> users = commentService.getAllByCommentAndIsReadTrue(userId);
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @GetMapping("/listCommentFalse/{userId}")
+    public ResponseEntity<Iterable<Comment>> CommentNotRead(@PathVariable(name = "userId") Long userId) {
+        Iterable<Comment> users = commentService.getAllByCommentAndIsReadFalse(userId);
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
