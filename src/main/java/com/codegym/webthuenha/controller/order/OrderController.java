@@ -136,6 +136,7 @@ public class OrderController {
                 order.setStartTime(orderDTO.getStartTime());
                 order.setEndTime(orderDTO.getEndTime());
                 order.setCreateTime(orderDTO.getCreateTime());
+                order.calculateIncome(orderDTO.getEndTime(), orderDTO.getStartTime(), house.getRent());
                 try {
                     orderService.save(order);
                 } catch (Exception e) {

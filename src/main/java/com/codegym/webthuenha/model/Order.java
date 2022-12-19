@@ -40,4 +40,12 @@ public class Order {
     @NotNull
     private Date createTime;
 
+    private long income;
+
+    public long calculateIncome(Date startTime, Date endTime, long rent){
+        long time;
+        time = ((endTime.getTime()-startTime.getTime())/86400000) + 1;
+        return time*rent;
+    }
+
 }
