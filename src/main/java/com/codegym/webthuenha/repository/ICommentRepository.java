@@ -18,6 +18,6 @@ public interface ICommentRepository extends JpaRepository<Comment, Long> {
     Iterable<Comment> getAllByCommentAndIsReadTrue(@Param("userId") Long userId);
 
     @Query(value = "select * from comments join houses h on comments.house_id = h.id where is_read = false and" +
-            " users_id= :userId", nativeQuery = true)
+            " h.user_id= :userId", nativeQuery = true)
     Iterable<Comment> getAllByCommentAndIsReadFalse(@Param("userId") Long userId);
 }
