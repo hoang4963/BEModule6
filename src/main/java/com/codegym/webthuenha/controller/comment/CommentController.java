@@ -30,6 +30,7 @@ public class CommentController {
     @PostMapping("/housecomment")
     public ResponseEntity<Comment> HouseCommentDTO(@RequestBody CommentDTO commentDTO){
         Comment comment = new Comment();
+        comment.setIsRead(false);
         comment.setComment(commentDTO.getComment());
         comment.setHouse(houseService.findById(commentDTO.getHouseId()).get());
         comment.setUser(userService.findById(commentDTO.getUserId()).get());
@@ -42,6 +43,19 @@ public class CommentController {
     }
     @GetMapping("/detail/{house_id}/{start}")
     public ResponseEntity<Iterable<Comment>> getListCommentByHouseOfUserId(@PathVariable Long house_id, @PathVariable Long start) {
-        return new ResponseEntity<>(commentService.getListCommentByHouseOfUserId(house_id,start), HttpStatus.OK);
+        return new ResponseEntity<>(commentService.getListCommentByHouseOfUserId(house_id, start), HttpStatus.OK);
+    }
+    @GetMapping("/listCommentRead/{userId}")
+    public ResponseEntity<Iterable<Comment>> CommentRead(@PathVariable(name = "userId") Long userId) {
+        Iterable<Comment> users = commentService.getAllByCommentAndIsReadTrue(userId);
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @PutMapping("/updateIsRead/{id}")
+    public ResponseEntity<Comment> updateIsRead(@PathVariable("id") Long id){
+        Comment comment = commentService.findById(id).get();
+        comment.setIsRead(true);
+        commentService.save(comment);
+        return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.codegym.webthuenha.service.order;
 
+import com.codegym.webthuenha.model.DTO.Income;
 import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.service.IGeneralService;
 
@@ -27,4 +28,6 @@ public interface IOrderService extends IGeneralService<Order> {
     void updateStatusOrderCancel(Long id);
 
     Iterable<Order> showOrderByHouseIdStatus1(Long id);
+
+    Iterable<Order> getIncome(Income income);
 }

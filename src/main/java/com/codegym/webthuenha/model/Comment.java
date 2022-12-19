@@ -27,4 +27,6 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "house_id")
     private House house;
+
+    private Boolean isRead;
 }
