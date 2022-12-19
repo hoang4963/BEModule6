@@ -30,7 +30,7 @@ public class CommentController {
     @PostMapping("/housecomment")
     public ResponseEntity<Comment> HouseCommentDTO(@RequestBody CommentDTO commentDTO){
         Comment comment = new Comment();
-        comment.setComment(commentDTO.getHouseComment());
+        comment.setComment(commentDTO.getComment());
         comment.setHouse(houseService.findById(commentDTO.getHouseId()).get());
         comment.setUser(userService.findById(commentDTO.getUserId()).get());
        commentService.save(comment);

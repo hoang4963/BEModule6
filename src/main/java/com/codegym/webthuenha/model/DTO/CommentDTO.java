@@ -10,8 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentDTO {
-    private Long id;
     private Long houseId;
     private Long userId;
-    private String houseComment;
+    private String comment;
 }
