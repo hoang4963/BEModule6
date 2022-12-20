@@ -28,11 +28,10 @@ public class EmailController {
         }
         String status
                 = emailService.sendSimpleMail(details);
-        System.out.println("ddasdiasbt:"+ status);
+        System.out.println(status);
         return new ResponseEntity<>(details, HttpStatus.OK);
     }
 
-    // Sending email with attachment
     @PostMapping("/sendMailWithAttachment")
     public String sendMailWithAttachment(
             @RequestBody EmailDetails details)

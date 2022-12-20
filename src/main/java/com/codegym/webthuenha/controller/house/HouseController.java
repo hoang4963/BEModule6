@@ -101,15 +101,6 @@ public class HouseController {
         return new ResponseEntity<>(house, HttpStatus.OK);
     }
 
-//    @PutMapping("/edit/{id}")
-//    public ResponseEntity<House> updateHouse() {
-//        return null;
-//    }
-
-    //    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<House> deleteHouse() {
-//        return null;
-//    }
     @Operation(summary = "Find house by ID", description = "Returns a single house", tags = {"house"})
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = House.class))), @ApiResponse(responseCode = "400", description = "Invalid ID supplied", content = @Content), @ApiResponse(responseCode = "404", description = "House not found", content = @Content)})
     @GetMapping("imageString/{id}")

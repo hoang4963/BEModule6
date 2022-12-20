@@ -6,7 +6,6 @@ import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.Order;
 import com.codegym.webthuenha.model.OrderStatus;
 import com.codegym.webthuenha.model.User;
-import com.codegym.webthuenha.service.BookingService;
 import com.codegym.webthuenha.service.house.IHouseService;
 import com.codegym.webthuenha.service.order.IOrderService;
 import com.codegym.webthuenha.service.orderStatus.IOrderStatusService;
@@ -15,13 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
