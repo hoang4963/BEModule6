@@ -11,6 +11,7 @@ public interface IOrderService extends IGeneralService<Order> {
 
     Iterable<Order> checkTimeOrder(Long id, Date startTime, Date endTime);
 
+//    Iterable<Order> createOrder(Long id, Date startTime, Date endTime);
 
     Iterable<Order> getOrderPast(Long id, Long start);
 

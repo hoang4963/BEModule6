@@ -142,12 +142,12 @@ public class HouseController {
         return new ResponseEntity<>(details, HttpStatus.OK);
     }
 
-    @GetMapping("/searchAllHouse")
-    public ResponseEntity<Iterable<House>> searchAllHouse(@PathVariable int bath, int bed, String address, Date startTime, Date endTime, Long maxRent, Long minRent) {
-        Iterable<House> houses = houseService.searchAllHouse(bath, bed, address, startTime, endTime, maxRent, minRent);
-        return new ResponseEntity<>(houses, HttpStatus.OK);
-
-    }
+//    @GetMapping("/searchAllHouse")
+//    public ResponseEntity<Iterable<House>> searchAllHouse(@PathVariable int bath, int bed, String address, Date startTime, Date endTime, Long maxRent, Long minRent) {
+//        Iterable<House> houses = houseService.searchAllHouse(bath, bed, address, startTime, endTime, maxRent, minRent);
+//        return new ResponseEntity<>(houses, HttpStatus.OK);
+//
+//    }
 
     @GetMapping("/findByUser/{id}")
     public ResponseEntity<Iterable<House>> findByUserId(@PathVariable Long id) {

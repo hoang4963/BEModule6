@@ -38,12 +38,12 @@ public class HouseService implements IHouseService{
         return houseRepository.get5HouseByRent();
     }
 
-    @Override
-    public Iterable<House> searchAllHouse(int bath, int bed, String address, Date startTime, Date endTime, Long maxRent, Long minRent) {
-        String searchAddress = ('%' + address + '%');
-
-        return houseRepository.searchAllHouse(bath, bed, searchAddress, startTime, endTime, maxRent, minRent);
-    }
+//    @Override
+//    public Iterable<House> searchAllHouse(int bath, int bed, String address, Date startTime, Date endTime, Long maxRent, Long minRent) {
+//        String searchAddress = ('%' + address + '%');
+//
+//        return houseRepository.searchAllHouse(bath, bed, searchAddress, startTime, endTime, maxRent, minRent);
+//    }
 
 
     public Iterable<House> findByUserId(Long id) {
