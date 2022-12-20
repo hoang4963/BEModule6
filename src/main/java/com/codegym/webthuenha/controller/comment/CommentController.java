@@ -48,7 +48,11 @@ public class CommentController {
     @GetMapping("/listCommentRead/{userId}")
     public ResponseEntity<Iterable<Comment>> CommentRead(@PathVariable(name = "userId") Long userId) {
         Iterable<Comment> users = commentService.getAllByCommentAndIsReadTrue(userId);
-
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    @GetMapping("/listCommentNotRead/{userId}")
+    public ResponseEntity<Iterable<Comment>> CommentNotRead(@PathVariable(name = "userId") Long userId) {
+        Iterable<Comment> users = commentService.getAllByCommentAndIsReadFalse(userId);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
     @PutMapping("/updateIsRead/{id}")
@@ -63,4 +67,5 @@ public class CommentController {
     public ResponseEntity<Iterable<Comment>> commentByHouseIdPagin(@PathVariable("id") Long houseId, @PathVariable("start") long start){
         return new ResponseEntity<>(commentService.getCommentByHouseId(houseId, start), HttpStatus.OK);
     }
+
 }

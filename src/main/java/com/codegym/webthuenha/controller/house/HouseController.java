@@ -144,4 +144,17 @@ public class HouseController {
     public ResponseEntity<Iterable<House>> findByUserId(@PathVariable Long id) {
         return new ResponseEntity<>(houseService.findByUserId(id), HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<House>> findHouseByAll(@RequestParam(name = "bedrooms") String bedrooms,
+                                                          @RequestParam(name = "bathrooms") String bathrooms,
+                                                          @RequestParam(name = "address") String address,
+                                                          @RequestParam(name = "rentMin") long rentMin,
+                                                          @RequestParam(name = "rentMax") long rentMax,
+                                                          @RequestParam(name = "endTime") String endTime,
+                                                          @RequestParam(name = "startTime") String startTime){
+        return new ResponseEntity<>(
+                houseService.findHouseByAll(bedrooms, bathrooms, address, rentMin, rentMax, endTime, startTime),
+                HttpStatus.OK);
+    }
 }
