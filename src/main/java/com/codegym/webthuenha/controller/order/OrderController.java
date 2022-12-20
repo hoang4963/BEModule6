@@ -36,9 +36,6 @@ public class OrderController {
     private IHouseService houseService;
 
 
-    @Autowired
-    private BookingService bookingService;
-
 //    huy order
     @PutMapping("/cancelOrderByUser/{id}")
     public ResponseEntity<Order> cancelOrderByUser(@PathVariable Long id, @RequestBody String string){
