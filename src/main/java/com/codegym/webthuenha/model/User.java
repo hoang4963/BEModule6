@@ -35,7 +35,7 @@ public class User {
     @Email
     private String email;
     @Pattern(regexp = "(09|03|07|08|05)+([0-9]{8})\\b")
-    private String phoneNumber;
+    private String phoneNumber; 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")

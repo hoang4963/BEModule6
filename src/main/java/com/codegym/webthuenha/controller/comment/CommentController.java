@@ -57,5 +57,14 @@ public class CommentController {
         commentService.save(comment);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
+    @GetMapping("/getCommentByHouseIdPaging/{id}/{start}")
+    public ResponseEntity<Iterable<Comment>> getCommentPaging(@PathVariable("id") Long id, @PathVariable("start") long start){
+        return new ResponseEntity<>(commentService.getListCommentByHouseOfUserId(id, start), HttpStatus.OK);
+    }
 
+    @GetMapping("/listCommentNotRead/{userId}")
+    public ResponseEntity<Iterable<Comment>> CommentNotRead(@PathVariable(name = "userId") Long userId) {
+        Iterable<Comment> users = commentService.getAllByCommentAndIsReadFalse(userId);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }
