@@ -56,4 +56,9 @@ public class CommentService implements ICommentService{
     public Iterable<Comment> getAllByCommentAndIsReadFalse(Long userId) {
         return commentRepository.getAllByCommentAndIsReadFalse(userId);
     }
+
+    @Override
+    public Iterable<Comment> getCommentByHouseId(Long id, long start) {
+        return commentRepository.getCommentByHouseId(id, start * 5);
+    }
 }
