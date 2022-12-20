@@ -41,4 +41,22 @@ public class HouseService implements IHouseService{
     public Iterable<House> findByUserId(Long id) {
         return houseReposiroty.findHouseByUserId(id);
     }
+
+    @Override
+    public Iterable<House> findHouseByAll(String bedrooms,
+                                          String bathrooms,
+                                          String address,
+                                          long rentMin, long rentMax,
+                                          String endTime, String startTime) {
+        if (bedrooms == null || bedrooms == ""){
+            bedrooms = ".*";
+        }
+        if (bathrooms == null || bathrooms == ""){
+            bathrooms = ".*";
+        }
+        if (address == null || address == ""){
+            address = ".*";
+        }
+        return houseReposiroty.findHouseByAll(bedrooms, bathrooms, address, rentMin, rentMax, endTime, startTime);
+    }
 }

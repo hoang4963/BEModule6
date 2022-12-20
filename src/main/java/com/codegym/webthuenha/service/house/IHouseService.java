@@ -8,4 +8,10 @@ public interface IHouseService extends IGeneralService<House> {
 
     Iterable<House> findByUserId(Long id);
 
+   Iterable<House> findHouseByAll(String bedrooms,
+                                  String bathrooms,
+                                  String address,
+                                  long rentMin, long rentMax,
+                                  String endTime, String startTime);
+
 }
