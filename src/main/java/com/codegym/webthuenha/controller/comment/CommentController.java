@@ -50,6 +50,11 @@ public class CommentController {
         Iterable<Comment> users = commentService.getAllByCommentAndIsReadTrue(userId);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+    @GetMapping("/listCommentNotRead/{userId}")
+    public ResponseEntity<Iterable<Comment>> CommentNotRead(@PathVariable(name = "userId") Long userId) {
+        Iterable<Comment> users = commentService.getAllByCommentAndIsReadFalse(userId);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
     @PutMapping("/updateIsRead/{id}")
     public ResponseEntity<Comment> updateIsRead(@PathVariable("id") Long id){
         Comment comment = commentService.findById(id).get();
@@ -61,10 +66,9 @@ public class CommentController {
     public ResponseEntity<Iterable<Comment>> getCommentPaging(@PathVariable("id") Long id, @PathVariable("start") long start){
         return new ResponseEntity<>(commentService.getListCommentByHouseOfUserId(id, start), HttpStatus.OK);
     }
-
-    @GetMapping("/listCommentNotRead/{userId}")
-    public ResponseEntity<Iterable<Comment>> CommentNotRead(@PathVariable(name = "userId") Long userId) {
-        Iterable<Comment> users = commentService.getAllByCommentAndIsReadFalse(userId);
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    @GetMapping("/getCommentByHouseIdPaging/{id}/{start}")
+    public ResponseEntity<Iterable<Comment>> commentByHouseIdPagin(@PathVariable("id") Long houseId, @PathVariable("start") long start){
+        return new ResponseEntity<>(commentService.getCommentByHouseId(houseId, start), HttpStatus.OK);
     }
+
 }

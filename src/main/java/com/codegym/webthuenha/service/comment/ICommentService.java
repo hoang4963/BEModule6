@@ -12,4 +12,5 @@ public interface ICommentService extends IGeneralService<Comment> {
     Iterable<Comment> getAllByCommentAndIsReadTrue(Long userId);
     Iterable<Comment> getAllByCommentAndIsReadFalse(Long userId);
 
+    Iterable<Comment> getCommentByHouseId(Long id, long start);
 }
