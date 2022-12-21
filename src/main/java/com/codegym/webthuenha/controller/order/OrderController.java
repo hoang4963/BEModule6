@@ -97,13 +97,14 @@ public class OrderController {
     }
 
     @PostMapping("/orders/{id}")
-    public ResponseEntity<Optional<Order>> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<Order> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
         List lists;
+        Order order = new Order();
         lists = (List) orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime());
 //        System.out.println(lists.size());
 //        System.out.println(orderService.checkTimeOrder(id, orderDTO.getStartTime(), orderDTO.getEndTime()));
 //        if (orderDTO.getStartTime().after(date) || orderDTO.getEndTime().after(date)) {
-            if (lists.size() == 0 ) {
+            if (lists.size() != 0 ) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             } else {
                 House house;
@@ -112,7 +113,7 @@ public class OrderController {
                 user = userService.findById(orderDTO.getUsersId()).get();
                 OrderStatus orderStatus;
                 orderStatus = orderStatusService.findById(orderDTO.getOrderStatusID()).get();
-                Order order = new Order();
+
                 order.setId(orderDTO.getId());
                 order.setUser(user);
                 order.setHouse(house);
@@ -130,7 +131,7 @@ public class OrderController {
             }
 
 //        }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(orderService.save(order),HttpStatus.CREATED);
     }
 
     //    Xóa orders theo id

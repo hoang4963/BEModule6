@@ -24,7 +24,7 @@ public interface IHouseRepository extends JpaRepository<House, Long> {
             "and h.bedrooms regexp :bedrooms " +
             "and h.bathrooms regexp :bathrooms " +
             "and h.house_address regexp :address " +
-            "and (h.rent > :rentMin and h.rent < :rentMax) " +
+            "and (h.rent >= :rentMin and h.rent <= :rentMax) " +
             "and ((orders.start_time > :endTime) or (orders.end_time < :startTime))")
     Iterable<House> findHouseByAll(@Param("bedrooms") String bedrooms,
                                    @Param("bathrooms") String bathrooms,
