@@ -1,6 +1,8 @@
 package com.codegym.webthuenha.controller.user;
 
+import com.codegym.webthuenha.model.House;
 import com.codegym.webthuenha.model.User;
+import com.codegym.webthuenha.service.house.IHouseService;
 import com.codegym.webthuenha.service.role.IRoleService;
 import com.codegym.webthuenha.service.role.RoleService;
 import com.codegym.webthuenha.service.user.UserService;
@@ -10,7 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -18,6 +23,8 @@ public class UserController {
 
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private IHouseService houseService;
     @Autowired
     private UserService userService;
     @GetMapping("/findAllUsers")
@@ -50,5 +57,18 @@ public class UserController {
         newUser.setRole(roleService.findById(Long.parseLong("1")).get());
         userService.save(newUser);
         return new ResponseEntity<>(newUser, HttpStatus.OK);
+    }
+
+
+    @PutMapping("/favouriteHouse/{userId}/{houseId}")
+    public ResponseEntity<User> favouriteHouse(@PathVariable("userId") Long userId,@PathVariable("houseId") Long houseId){
+        if (!userService.findById(userId).isPresent()|| !houseService.findById(houseId).isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        User user = userService.findById(userId).get();
+        House house = houseService.findById(houseId).get();
+        user.getFavouriteHouse().add(house);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
