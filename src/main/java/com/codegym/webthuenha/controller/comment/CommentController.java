@@ -62,10 +62,10 @@ public class CommentController {
         commentService.save(comment);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
-    @GetMapping("/getCommentByHouseIdPaging/{id}/{start}")
-    public ResponseEntity<Iterable<Comment>> getCommentPaging(@PathVariable("id") Long id, @PathVariable("start") long start){
-        return new ResponseEntity<>(commentService.getListCommentByHouseOfUserId(id, start), HttpStatus.OK);
-    }
+//    @GetMapping("/getCommentByHouseIdPaging/{id}/{start}")
+//    public ResponseEntity<Iterable<Comment>> getCommentPaging(@PathVariable("id") Long id, @PathVariable("start") long start){
+//        return new ResponseEntity<>(commentService.getListCommentByHouseOfUserId(id, start), HttpStatus.OK);
+//    }
     @GetMapping("/getCommentByHouseIdPaging/{id}/{start}")
     public ResponseEntity<Iterable<Comment>> commentByHouseIdPagin(@PathVariable("id") Long houseId, @PathVariable("start") long start){
         return new ResponseEntity<>(commentService.getCommentByHouseId(houseId, start), HttpStatus.OK);
