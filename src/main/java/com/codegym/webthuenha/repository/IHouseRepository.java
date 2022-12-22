@@ -21,7 +21,8 @@ public interface IHouseRepository extends JpaRepository<House, Long> {
     @Query(nativeQuery = true, value = "select * from houses where user_id = :id ")
     Iterable<House> findHouseByUserId(@Param("id") Long id);
 
-    @Query(nativeQuery = true, value = "select * from houses h join orders on h.id = orders.house_id where" +
+    @Query(nativeQuery = true, value = "select * from houses h join orders on h.id = orders.house_id where " +
+            "h.house_status_id = 2" +
             " ((order_status_id = 2 or order_status_id = 3)) " +
             "and h.bedrooms regexp :bedrooms " +
             "and h.bathrooms regexp :bathrooms " +
