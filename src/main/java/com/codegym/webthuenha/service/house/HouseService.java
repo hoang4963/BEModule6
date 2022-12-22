@@ -52,7 +52,7 @@ public class HouseService implements IHouseService{
 
     @Override
     public Iterable<House> findAllPage9(Long start) {
-        return houseRepository.findAllPage9(start);
+        return houseRepository.findAllPage9(start*9);
     }
 
     @Override
