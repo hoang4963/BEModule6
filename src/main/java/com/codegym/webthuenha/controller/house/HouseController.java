@@ -52,8 +52,13 @@ public class HouseController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = House.class))))})
     @GetMapping("/list")
     public ResponseEntity<Iterable<House>> showAllHouse() {
-        Iterable<House> users = houseService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        Iterable<House> houses = houseService.findAll();
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+    @GetMapping("/list/{start")
+    public ResponseEntity<Iterable<House>> showAllHousePage9(@PathVariable Long start) {
+        Iterable<House> houses = houseService.findAllPage9(start);
+        return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
     @Operation(summary = "Add a new house", description = "Add a new house", tags = {"house"})

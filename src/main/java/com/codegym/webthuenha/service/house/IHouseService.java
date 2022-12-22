@@ -11,6 +11,7 @@ public interface IHouseService extends IGeneralService<House> {
     Iterable<House> searchAllHouse(int bath, int bed, String address, Date startTime, Date endTime, Long maxRent, Long minRent);
 
     Iterable<House> findByUserId(Long id);
+    Iterable<House> findAllPage9(Long start);
 
    Iterable<House> findHouseByAll(String bedrooms,
                                   String bathrooms,
