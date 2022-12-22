@@ -67,7 +67,7 @@ public class OrderController {
     }
     @GetMapping("/ordersWaitByUser/{id}")
     public ResponseEntity<Iterable<Order>> getOrderWait(@PathVariable Long id){
-        return new ResponseEntity<>(orderService.getOrderPast(id), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.getOrderWait(id), HttpStatus.OK);
     }
 
     // show tất cả order

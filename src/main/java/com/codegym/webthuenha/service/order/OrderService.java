@@ -79,6 +79,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public Iterable<Order> getOrderWait(Long id) {
+        return orderRepository.getOrderWait(id);
+    }
+
+    @Override
     public void updateStatusOrderCancel(Long id) {
         orderRepository.updateStatusOrderCancel(id);
     }

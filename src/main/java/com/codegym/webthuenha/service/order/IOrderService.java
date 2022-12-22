@@ -25,6 +25,8 @@ public interface IOrderService extends IGeneralService<Order> {
 
     Iterable<Order> getOrderPast(Long id);
 
+    Iterable<Order> getOrderWait(Long id);
+
     void updateStatusOrderCancel(Long id);
 
     Iterable<Order> showOrderByHouseIdStatus1(Long id);
