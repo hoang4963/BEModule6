@@ -55,7 +55,7 @@ public class HouseController {
         Iterable<House> houses = houseService.findAll();
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
-    @GetMapping("/list/{start")
+    @GetMapping("/list/{start}")
     public ResponseEntity<Iterable<House>> showAllHousePage9(@PathVariable Long start) {
         Iterable<House> houses = houseService.findAllPage9(start);
         return new ResponseEntity<>(houses, HttpStatus.OK);
