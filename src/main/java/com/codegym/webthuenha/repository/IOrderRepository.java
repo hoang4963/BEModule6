@@ -13,9 +13,10 @@ import java.util.Date;
 public interface IOrderRepository extends JpaRepository<Order, Long> {
     @Query(nativeQuery = true, value = "select * from orders where house_id = :id and " +
             "(CURDATE() <= :startTime or CURDATE() <= :endTime) and " +
-            "((orders.order_status_id = 2 or orders.order_status_id =3)  and " +
-            "((orders.start_time >= :startTime and orders.start_time >= :endTime) or " +
-            "(orders.end_time <= :startTime and orders.end_time <= :endTime)))")
+            "((orders.order_status_id = 2 or orders.order_status_id = 3)  and " +
+            "((orders.end_time >= :startTime and orders.start_time <= :startTime ) or " +
+            "(orders.start_time <= :endTime and orders.end_time >= :endTime) or " +
+            "(orders.start_time >= :startTime and orders.end_time <= :endTime)))")
     Iterable<Order> checkOrder(@Param("id") Long id, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     @Query(nativeQuery = true, value = "select * from orders where house_id = :id and (orders.order_status_id =2)")
@@ -35,6 +36,9 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
 
     @Query(nativeQuery = true, value = "select * from orders where order_status_id <> 1 and users_id = :id")
     Iterable<Order> getOrderPast(@Param("id") Long id);
+
+    @Query(nativeQuery = true, value = "select * from orders where order_status_id = 1 and users_id = :id")
+    Iterable<Order> getOrderWait(@Param("id") Long id);
 
     @Query(nativeQuery = true, value = "select * from orders where (order_status_id = 1 or order_status_id = 2) and users_id = :id limit :start , 5")
     Iterable<Order> getOrderWaitConfirm(@Param("id") Long id, @Param("start") Long start);

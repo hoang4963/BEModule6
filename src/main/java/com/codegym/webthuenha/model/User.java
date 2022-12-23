@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -40,4 +42,8 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
+    @ManyToMany
+    @JoinTable(name = "favourite", joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "house_id")})
+    private List<House> favouriteHouse;
 }

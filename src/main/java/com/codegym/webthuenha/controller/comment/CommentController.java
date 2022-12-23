@@ -67,8 +67,9 @@ public class CommentController {
 //        return new ResponseEntity<>(commentService.getListCommentByHouseOfUserId(id, start), HttpStatus.OK);
 //    }
     @GetMapping("/getCommentByHouseIdPaging/{id}/{start}")
-    public ResponseEntity<Iterable<Comment>> commentByHouseIdPaging(@PathVariable("id") Long houseId, @PathVariable("start") long start){
+
+    public ResponseEntity<Iterable<Comment>> commentByHouseIdPagin(@PathVariable("id") Long houseId, @PathVariable("start") long start){
+
         return new ResponseEntity<>(commentService.getCommentByHouseId(houseId, start), HttpStatus.OK);
     }
-
 }
